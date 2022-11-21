@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/sf_medium"
+    android:textSize="16sp"
+    android:textColor="@color/yellow"
+    android:padding="10dp"
+/>
+
+<!--
+Reference
+Change spinner text size and text color: https://stackoverflow.com/questions/9476665/how-to-change-spinner-text-size-and-text-color
+-->

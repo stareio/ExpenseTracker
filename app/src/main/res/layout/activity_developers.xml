@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DevelopersActivity">
+
+    <ImageView
+        android:id="@+id/ivDevsBackg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintHeight="match_parent"
+        app:srcCompat="@drawable/devs_backg"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="214dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <ImageView
+                android:id="@+id/ivMeetDevs"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:paddingHorizontal="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/meet_the_devs" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:orientation="vertical">
+
+                    <!--Developer 1-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ivDev1"
+                            android:layout_width="150dp"
+                            android:layout_height="210dp"
+                            android:layout_marginStart="32dp"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvDev1"
+                            android:layout_width="210dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias=".825"
+                            app:layout_constraintLeft_toRightOf="@id/ivDev1"
+                            app:layout_constraintRight_toRightOf="@id/ivDev1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="3dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="16dp">
+
+                                <TextView
+                                    android:id="@+id/tvDevName1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:fontFamily="@font/sf_bold"
+                                    android:text="Carlos Diaz"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:id="@+id/tvDevDescr1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="2dp"
+                                    android:fontFamily="@font/sf_medium"
+                                    android:text="Hello world."
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!--Developer 2-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="64dp">
+
+                        <ImageView
+                            android:id="@+id/ivDev2"
+                            android:layout_width="150dp"
+                            android:layout_height="210dp"
+                            android:layout_marginEnd="32dp"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvDev2"
+                            android:layout_width="210dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias=".175"
+                            app:layout_constraintLeft_toLeftOf="@id/ivDev2"
+                            app:layout_constraintRight_toLeftOf="@id/ivDev2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="3dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="20dp"
+                                android:paddingVertical="16dp">
+
+                                <TextView
+                                    android:id="@+id/tvDevName2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:fontFamily="@font/sf_bold"
+                                    android:text="Sophie Reginio"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="20sp" />
+
+                                <TextView
+                                    android:id="@+id/tvDevDescr2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="2dp"
+                                    android:fontFamily="@font/sf_medium"
+                                    android:text="Hello world."
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!--Developer 3-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ivDev3"
+                            android:layout_width="150dp"
+                            android:layout_height="210dp"
+                            android:layout_marginStart="32dp"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvDev3"
+                            android:layout_width="210dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias=".825"
+                            app:layout_constraintLeft_toRightOf="@id/ivDev3"
+                            app:layout_constraintRight_toRightOf="@id/ivDev3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="3dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="12dp"
+                                android:paddingVertical="16dp">
+
+                                <TextView
+                                    android:id="@+id/tvDevName3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:fontFamily="@font/sf_bold"
+                                    android:text="Michael Sarmiento"
+                                    android:textColor="@color/yellow"
+                                    android:textSize="19sp" />
+
+                                <TextView
+                                    android:id="@+id/tvDevDescr3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="2dp"
+                                    android:fontFamily="@font/sf_medium"
+                                    android:paddingHorizontal="8dp"
+                                    android:text="Hello world."
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp" />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+Reference
+Card with colored border: https://stackoverflow.com/questions/36575069/how-to-set-colored-border-on-cardview
+-->
