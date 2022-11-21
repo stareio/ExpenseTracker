@@ -43,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
         // create an adapter to describe how the items are displayed, adapters are used in several places in android.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
             this,
-                R.layout.spinner_currency,
+                R.layout.spinner,
                 items
         );
 

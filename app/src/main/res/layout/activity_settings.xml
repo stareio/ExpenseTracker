@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tbSettings"
+            android:id="@+id/tbAddRecord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/yellow"
@@ -27,7 +27,7 @@
             android:paddingVertical="18dp">
 
             <TextView
-                android:id="@+id/tvGreeting"
+                android:id="@+id/tvAddExpInc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -53,7 +53,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvGreetingDescr"
+                android:id="@+id/tvExpIncDescr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -69,7 +69,7 @@
                 android:layout_height="41dp" />
 
             <TextView
-                android:id="@+id/tvAppearance"
+                android:id="@+id/tvAddNameTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tvDarkMode"
+                    android:id="@+id/tvAddSpecifCatSw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_field_lower_shadow"
@@ -127,7 +127,7 @@
                     android:textSize="16sp" />
 
                 <Switch
-                    android:id="@+id/swDarkMode"
+                    android:id="@+id/swAddSpecifCat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -141,7 +141,7 @@
                 android:layout_height="41dp" />
 
             <TextView
-                android:id="@+id/tvOthers"
+                android:id="@+id/tvAddDateTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"

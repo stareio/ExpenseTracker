@@ -6,6 +6,7 @@
     android:fontFamily="@font/sf_medium"
     android:textSize="16sp"
     android:textColor="@color/yellow"
+    android:textAlignment="center"
     android:padding="10dp"
 />
 
