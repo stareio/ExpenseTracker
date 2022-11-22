@@ -21,26 +21,11 @@ public class MainActivity extends AppCompatActivity {
         addBtn = (Button) findViewById(R.id.btnAdd);
         editBtn = (Button) findViewById(R.id.btnEdit);
 
-        settingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nextActivity(SettingsActivity.class);
-            }
-        });
+        settingsBtn.setOnClickListener(view -> nextActivity(SettingsActivity.class));
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nextActivity(AddRecordActivity.class);
-            }
-        });
+        addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
 
-//        editBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                nextActivity(EditRecordActivity.class);
-//            }
-//        });
+        editBtn.setOnClickListener(view -> nextActivity(EditRecordActivity.class));
     }
 
     private void nextActivity(Class dest) {
