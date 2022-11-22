@@ -10,10 +10,10 @@
         android:id="@+id/ivDevsBackg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="120dp"
         app:layout_constraintHeight="match_parent"
         app:srcCompat="@drawable/devs_backg"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="214dp" />
+        tools:layout_editor_absoluteY="56dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -252,7 +252,7 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="180dp" />
+                        android:layout_height="210dp" />
 
                 </LinearLayout>
             </ScrollView>
