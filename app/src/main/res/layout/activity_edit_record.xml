@@ -314,3 +314,8 @@
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+Reference
+Buttons at bottom of screen with LinearLayout: https://stackoverflow.com/questions/14779688/put-buttons-at-bottom-of-screen-with-linearlayout
+-->
