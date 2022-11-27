@@ -54,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        // NTS: do dark/light mode feature
+        // NTS: do dark/light mode feature !!
 
         // get value of dark mode switch
         darkModeSw.setOnCheckedChangeListener((buttonView, isChecked) -> {
