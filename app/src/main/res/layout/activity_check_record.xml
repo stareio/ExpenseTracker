@@ -32,7 +32,7 @@
                     android:shadowDx="4"
                     android:shadowDy="4"
                     android:shadowRadius="2"
-                    android:text="November 7, 2022"
+                    android:text="November 28, 2022"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
