@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button settingsBtn, addBtn, editBtn;
+    Button settingsBtn, addBtn, editBtn, checkBtn;
     Intent intent;
 
     SharedPreferences sp;
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         settingsBtn = (Button) findViewById(R.id.btnSettings);
         addBtn = (Button) findViewById(R.id.btnAdd);
         editBtn = (Button) findViewById(R.id.btnEdit);
+        checkBtn = (Button) findViewById(R.id.btnCheck);
 
         sp = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         Boolean isDark = sp.getBoolean("night", false);
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
 
         editBtn.setOnClickListener(view -> nextActivity(EditRecordActivity.class));
+
+        checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
 
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
