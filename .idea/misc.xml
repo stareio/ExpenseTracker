@@ -3,12 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/dark_field_lower_shadow.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/dark_field_upper_and_lower_shadows.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/dark_field_upper_shadow.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/dark_input_field_lower_shadow.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/dark_input_field_upper_and_lower_shadows.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/dark_input_field_upper_shadow.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.119" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/input_field_lower_shadow.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/input_field_upper_shadow.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/light_field_upper_and_lower_shadows.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/light_input_field_lower_shadow.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/light_input_field_upper_and_lower_shadows.xml" value="0.119" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/light_input_field_upper_shadow.xml" value="0.119" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_add_record.xml" value="0.25" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_developers.xml" value="0.25" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_edit_record.xml" value="0.25" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_settings.xml" value="0.23072916666666668" />
+        <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_settings.xml" value="0.1" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/spinner.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/spinner_currency.xml" value="0.23072916666666668" />
       </map>
