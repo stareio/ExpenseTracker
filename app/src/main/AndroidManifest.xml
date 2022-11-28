@@ -14,11 +14,24 @@
         android:theme="@style/Theme.ExpenseTracker"
         tools:targetApi="31">
         <activity
-<<<<<<< Updated upstream
+            android:name=".EditRecordActivity"
+            android:label="Edit Record"
+            android:exported="false" />
+        <activity
+            android:name=".AddRecordActivity"
+            android:label="Add Record"
+            android:exported="false" />
+        <activity
             android:name=".DevelopersActivity"
+            android:label=""
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
+            android:label="Settings"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Navigation"
             android:exported="true">
 =======
             android:name=".CheckRecordActivity"
@@ -49,17 +62,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
     </application>
 

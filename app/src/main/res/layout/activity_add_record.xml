@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3F5F4"
-    tools:context=".SettingsActivity">
+    tools:context=".AddRecordActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,58 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingVertical="18dp">
+            android:paddingTop="18dp">
 
             <TextView
-                android:id="@+id/tvAddExpInc"
+                android:id="@+id/tvAddExpIncTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:fontFamily="@font/sf_medium"
                 android:paddingHorizontal="16dp"
-                android:text="Greeting"
-                android:textAllCaps="true"
-                android:textColor="@color/gray"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/etSettingsName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/input_field_upper_and_lower_shadows"
-                android:ems="10"
-                android:fontFamily="@font/sf_medium"
-                android:hint="Enter name here"
-                android:inputType="textPersonName"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:textColor="@color/gray"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvExpIncDescr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/sf_medium"
-                android:paddingHorizontal="16dp"
-                android:text="Change the greeting name in the homepage."
-                android:textAllCaps="false"
-                android:textColor="@color/gray"
-                android:textSize="16sp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="41dp" />
-
-            <TextView
-                android:id="@+id/tvAddNameTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/sf_medium"
-                android:paddingHorizontal="16dp"
-                android:text="Greeting"
+                android:text="Expense/Income"
                 android:textAllCaps="true"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -77,7 +35,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tvCurrency"
+                    android:id="@+id/tvAddExpInc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -85,13 +43,13 @@
                     android:fontFamily="@font/sf_medium"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp"
-                    android:text="Currency"
+                    android:text="Expense"
                     android:textAllCaps="false"
                     android:textColor="@color/gray"
                     android:textSize="16sp" />
 
                 <Spinner
-                    android:id="@+id/spnrCurrency"
+                    android:id="@+id/spnrAddExpInc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -101,44 +59,71 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvExpIncDescr"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvAddSpecifCatSw"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/input_field_lower_shadow"
-                    android:fontFamily="@font/sf_medium"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:text="Dark Mode"
-                    android:textAllCaps="false"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp" />
-
-                <Switch
-                    android:id="@+id/swDarkMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="12dp" />
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/sf_medium"
+                android:paddingHorizontal="16dp"
+                android:text="Select if the record is an expense or earning."
+                android:textAllCaps="false"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="41dp" />
+                android:layout_height="12dp" />
 
             <TextView
-                android:id="@+id/tvAddDateTitle"
+                android:id="@+id/tvAddNameTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:fontFamily="@font/sf_medium"
                 android:paddingHorizontal="16dp"
-                android:text="Others"
+                android:text="Name"
+                android:textAllCaps="true"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etAddName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_field_upper_and_lower_shadows"
+                android:ems="10"
+                android:fontFamily="@font/sf_medium"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAddNameDescr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/sf_medium"
+                android:paddingHorizontal="16dp"
+                android:text="Enter a name for the given expense or earning."
+                android:textAllCaps="false"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <TextView
+                android:id="@+id/tvAddCatTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/sf_medium"
+                android:paddingHorizontal="16dp"
+                android:text="Category"
                 android:textAllCaps="true"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -148,28 +133,159 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tvDevelopers"
+                    android:id="@+id/tvAddSpecifCatSw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_field_upper_and_lower_shadows"
                     android:fontFamily="@font/sf_medium"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp"
-                    android:text="About the Developers"
+                    android:text="Specific Category"
                     android:textAllCaps="false"
                     android:textColor="@color/gray"
                     android:textSize="16sp" />
 
-                <ImageButton
-                    android:id="@+id/btnDevelopers"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                <Switch
+                    android:id="@+id/swAddSpecifCat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:layout_marginEnd="10dp"
-                    android:background="@null"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/btn_next" />
+                    android:layout_marginRight="12dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAddCatSpnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/input_field_lower_shadow"
+                    android:fontFamily="@font/sf_medium"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:text="Car"
+                    android:textAllCaps="false"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spnrAddCat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="2dp"
+                    android:spinnerMode="dropdown" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvCatDescr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/sf_medium"
+                android:paddingHorizontal="16dp"
+                android:text="Select a category for the record."
+                android:textAllCaps="false"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <TextView
+                android:id="@+id/tvAddDateTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/sf_medium"
+                android:paddingHorizontal="16dp"
+                android:text="Date"
+                android:textAllCaps="true"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAddDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/input_field_upper_and_lower_shadows"
+                    android:fontFamily="@font/sf_medium"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spnrAddDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="2dp"
+                    android:spinnerMode="dropdown" />
+
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <TextView
+                android:id="@+id/tvAddAmtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/sf_medium"
+                android:paddingHorizontal="16dp"
+                android:text="Amount"
+                android:textAllCaps="true"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etAddAmt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_field_upper_and_lower_shadows"
+                    android:ems="10"
+                    android:fontFamily="@font/sf_medium"
+                    android:inputType="textPersonName"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvAddAmtCurr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/sf_medium"
+                    android:text="PHP"
+                    android:textAllCaps="false"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp" />
+
             </RelativeLayout>
 
             <Space
@@ -184,13 +300,13 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnSaveSettings"
+                    android:id="@+id/btnAddRecord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="26dp"
                     android:backgroundTint="@color/yellow"
                     android:paddingHorizontal="32dp"
-                    android:text="Save" />
+                    android:text="Submit" />
             </LinearLayout>
 
         </LinearLayout>
@@ -199,8 +315,6 @@
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--
-References
-Button inside EditText: https://stackoverflow.com/questions/13151366/how-to-place-button-inside-of-edittext
-Dropdown list: https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
+Reference
 Buttons at bottom of screen with LinearLayout: https://stackoverflow.com/questions/14779688/put-buttons-at-bottom-of-screen-with-linearlayout
 -->
