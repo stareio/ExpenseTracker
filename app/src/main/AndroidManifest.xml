@@ -30,6 +30,10 @@
             android:label="Settings"
             android:exported="false" />
         <activity
+            android:name=".CheckRecordActivity"
+            android:label="Check Records"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:label="Navigation"
             android:exported="true" >
