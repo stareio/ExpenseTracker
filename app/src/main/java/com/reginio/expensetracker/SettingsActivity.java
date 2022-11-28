@@ -29,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        nameEt = findViewById(R.id.etSettingsName);
+        nameEt = findViewById(R.id.etGreetingName);
         currencySpnr = findViewById(R.id.spnrCurrency);
         darkModeSw = findViewById(R.id.swDarkMode);
         devBtn = findViewById(R.id.btnDevelopers);
