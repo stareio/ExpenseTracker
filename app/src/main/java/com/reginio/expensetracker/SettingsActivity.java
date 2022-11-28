@@ -51,10 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         // check for saved username and currency
-        readFile();
-
-        // populate the dropdown list for currency
-        populateCurrencySpinner();
+        readSettings();
 
         // get selected item in currency spinner
         currencySpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -68,6 +65,9 @@ public class SettingsActivity extends AppCompatActivity {
                 currency = "PHP";
             }
         });
+
+        // get value of dark mode switch
+        darkModeSw.setOnCheckedChangeListener((buttonView, isChecked) -> isDark = isChecked);
 
         // redirect to developers page
         devBtn.setOnClickListener(view -> {
@@ -87,6 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, "nameToSave: " + nameToSave);
         Log.d(LOG_TAG, "currToSave: " + currToSave);
+        Log.d(LOG_TAG, "isDark: " + isDark);
 
         try {
             FileOutputStream fos = openFileOutput("ExpenseTracker_Settings.txt", MODE_PRIVATE);
@@ -118,7 +119,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void readFile() {
+    public void readSettings() {
+        // populate the dropdown list for currency
+        populateCurrencySpinner();
+
         // check if file exists
         if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
             Log.d(LOG_TAG, "Settings file exists");
@@ -143,7 +147,6 @@ public class SettingsActivity extends AppCompatActivity {
                 nameEt.setText(nameToRead);
 
                 // NTS: fix issue -> not displaying if USD is saved
-                populateCurrencySpinner();
                 currencySpnr.setSelection(getIndex(currencySpnr, currToRead), true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -174,8 +177,8 @@ public class SettingsActivity extends AppCompatActivity {
     private int getIndex(Spinner spinner, String myString){
 
         int index = 0;
-        Log.d(LOG_TAG, "spinner.getItemAtPosition(0): " + spinner.getItemAtPosition(0));
-        Log.d(LOG_TAG, "spinner.getItemAtPosition(1): " + spinner.getItemAtPosition(1));
+//        Log.d(LOG_TAG, "spinner.getItemAtPosition(0): " + spinner.getItemAtPosition(0));
+//        Log.d(LOG_TAG, "spinner.getItemAtPosition(1): " + spinner.getItemAtPosition(1));
 
         for (int i=0; i<spinner.getCount(); i++){
             if (spinner.getItemAtPosition(i).equals(myString)){
@@ -190,13 +193,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setMode() {
         if (isDark) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            spEditor = sp.edit();
-            spEditor.putBoolean("night", false);
-        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             spEditor = sp.edit();
             spEditor.putBoolean("night", true);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            spEditor = sp.edit();
+            spEditor.putBoolean("night", false);
         }
 
         spEditor.apply();
@@ -204,7 +207,7 @@ public class SettingsActivity extends AppCompatActivity {
 }
 
 /*
-Reference
+References
 Dropdown list: https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
 Customized spinner: https://www.youtube.com/watch?v=N8GfosWTt44
 Get switch value: https://stackoverflow.com/questions/26676367/how-to-get-switch-value-in-android
@@ -214,4 +217,5 @@ Set spinner positiono: https://stackoverflow.com/questions/8769368/how-to-set-po
 Get spinner selected item: https://stackoverflow.com/questions/1337424/android-spinner-get-the-selected-item-change-event
 Get position of each String value in spinner: https://stackoverflow.com/questions/13112020/android-spinner-get-position-of-string-in-code-behind
 Dark and light mode: https://www.youtube.com/watch?v=_XN-c5Yz0wk
+Get switch value: https://stackoverflow.com/questions/10576307/android-how-do-i-correctly-get-the-value-from-a-switch
 */

@@ -40,6 +40,18 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <!-- Text for Developers Description -->
+    <style name="SWITCH">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#34B3F1</item>
+
+        <!-- inactive thumb color -->
+<!--        <item name="colorSwitchThumbNormal">#f1f1f1</item>-->
+
+        <!-- inactive track color (30% transparency) -->
+<!--        <item name="android:colorForeground">#42221f1f</item>-->
+    </style>
+
     <!-- Input Field BackgroundS for Add/Edit Record and Settings Pages -->
     <!-- Upper Shadow Version -->
     <style name="INPUT_FIELD_UPPER">
@@ -61,6 +73,7 @@
 </resources>
 
 <!--
-Reference
+References
 Dark and light mode: https://www.youtube.com/watch?v=_XN-c5Yz0wk
+Change switch color: https://stackoverflow.com/questions/11253512/change-on-color-of-a-switch
 -->
