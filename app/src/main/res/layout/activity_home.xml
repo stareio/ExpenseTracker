@@ -11,23 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/editTextDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="108dp"
-            android:layout_marginTop="227dp"
-            android:ems="10"
-            android:fontFamily="@font/sf_bold"
-            android:inputType="date"
-            android:text="Nov, 7, 2022"
-            android:textAlignment="center"
-            android:textColor="#213933"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ProgressBar
             android:id="@+id/ProgressBar01"
             android:layout_width="211dp"
@@ -67,12 +50,12 @@
 
         <TextView
             android:id="@+id/income_lbl2"
-            android:layout_width="wrap_content"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="84dp"
-            android:layout_marginEnd="47dp"
+            android:layout_marginEnd="1dp"
             android:alpha="1"
             android:fontFamily="@font/sf_bold"
             android:text="P 1,000.00"
@@ -82,12 +65,12 @@
 
         <TextView
             android:id="@+id/expenses_lbl2"
-            android:layout_width="wrap_content"
+            android:layout_width="174dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="159dp"
-            android:layout_marginEnd="53dp"
+            android:layout_marginEnd="0dp"
             android:alpha="1"
             android:fontFamily="@font/sf_bold"
             android:text="-P 500.00"
@@ -108,6 +91,19 @@
             android:text="Total Expenses"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="224dp"
+            android:layout_marginEnd="80dp"
+            android:text="JAN 01 2022"
+            style="android:spinnerStyle"
+            
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
