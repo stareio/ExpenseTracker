@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button settingsBtn, addBtn, editBtn, checkBtn;
+    Button settingsBtn, addBtn, editBtn, checkBtn, homeBtn;
     Intent intent;
 
     @Override
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         addBtn = (Button) findViewById(R.id.btnAdd);
         editBtn = (Button) findViewById(R.id.btnEdit);
         checkBtn = (Button) findViewById(R.id.btnCheck);
+        homeBtn = (Button) findViewById(R.id.btnHome);
 
         settingsBtn.setOnClickListener(view -> nextActivity(SettingsActivity.class));
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         editBtn.setOnClickListener(view -> nextActivity(EditRecordActivity.class));
 
         checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
+
+        homeBtn.setOnClickListener(view -> nextActivity(HomeActivity.class));
     }
 
     private void nextActivity(Class dest) {

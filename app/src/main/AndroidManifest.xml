@@ -13,14 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpenseTracker"
         tools:targetApi="31">
+
         <activity
-<<<<<<< HEAD
             android:name=".HomeActivity"
-            android:exported="true">
-=======
-            android:name=".EditRecordActivity"
-            android:label="Edit Record"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".AddRecordActivity"
             android:label="Add Record"
@@ -38,43 +34,21 @@
             android:label="Check Records"
             android:exported="false" />
         <activity
+            android:name=".SplashActivity"
+            android:label="Navigation"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:label="Navigation"
-            android:exported="true" >
-
->>>>>>> master
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
 
-        <activity
-            android:name=".SplashActivity"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".DevelopersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-=======
->>>>>>> master
     </application>
 
 </manifest>
