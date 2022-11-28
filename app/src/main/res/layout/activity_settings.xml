@@ -19,7 +19,7 @@
             android:paddingVertical="18dp">
 
             <TextView
-                android:id="@+id/tvAddExpInc"
+                android:id="@+id/tvSettingsGreeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -31,7 +31,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/etSettingsName"
+                android:id="@+id/etGreetingName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_field_upper_and_lower_shadows"
@@ -45,7 +45,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvExpIncDescr"
+                android:id="@+id/tvGreetingDescr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -61,13 +61,13 @@
                 android:layout_height="41dp" />
 
             <TextView
-                android:id="@+id/tvAddNameTitle"
+                android:id="@+id/tvAppearanceTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:fontFamily="@font/sf_medium"
                 android:paddingHorizontal="16dp"
-                android:text="Greeting"
+                android:text="Appearance"
                 android:textAllCaps="true"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -132,7 +132,7 @@
                 android:layout_height="41dp" />
 
             <TextView
-                android:id="@+id/tvAddDateTitle"
+                android:id="@+id/tvOthersTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
