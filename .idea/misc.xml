@@ -3,15 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/drawable/radius.xml" value="0.244" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_add_record.xml" value="0.25" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_check_record.xml" value="0.2" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_developers.xml" value="0.264" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_edit_record.xml" value="0.25" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_settings.xml" value="0.2" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/spinner.xml" value="0.25" />
-        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/spinner_currency.xml" value="0.264" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/drawable/ic_baseline_directions_car_24.xml" value="0.213" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1745" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1835" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/drawable/progress_bg.xml" value="0.207" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/layout/activity_add_record.xml" value="0.2210144927536232" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/layout/activity_developers.xml" value="0.2210144927536232" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/layout/activity_home.xml" value="0.4" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/layout/activity_settings.xml" value="0.2210144927536232" />
+        <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_developers.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/star/AndroidStudioProjects/ExpenseTracker/app/src/main/res/layout/activity_settings.xml" value="0.23072916666666668" />
@@ -24,5 +25,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.4" />
+      </ProjectState>
+    </option>
   </component>
 </project>
