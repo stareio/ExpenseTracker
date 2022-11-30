@@ -56,7 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
         // get selected item in currency spinner
         currencySpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+                                       int position, long id) {
                 currency = currencySpnr.getSelectedItem().toString();
             }
 
@@ -113,7 +114,8 @@ public class SettingsActivity extends AppCompatActivity {
             // save mode as dark/light
             setMode();
 
-            Toast.makeText(getApplicationContext(), "Current Settings Saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Current Settings Saved!",
+                    Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -146,7 +148,6 @@ public class SettingsActivity extends AppCompatActivity {
                 // update the displayed username and currency
                 nameEt.setText(nameToRead);
 
-                // NTS: fix issue -> not displaying if USD is saved
                 currencySpnr.setSelection(getIndex(currencySpnr, currToRead), true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -157,25 +158,24 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void populateCurrencySpinner() {
-        // get the spinner from the xml.
+        // get the spinner from the xml
         currencySpnr = findViewById(R.id.spnrCurrency);
 
-        // create a list of items for the spinner.
+        // create a list of items for the spinner
         String[] items = new String[]{"PHP", "USD"};
 
-        // create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        // create an adapter to describe how the items are displayed
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 R.layout.spinner,
                 items
         );
 
-        // set the spinners adapter to the previously created one.
+        // set the spinner adapter to the previously created one
         currencySpnr.setAdapter(adapter);
     }
 
     private int getIndex(Spinner spinner, String myString){
-
         int index = 0;
 //        Log.d(LOG_TAG, "spinner.getItemAtPosition(0): " + spinner.getItemAtPosition(0));
 //        Log.d(LOG_TAG, "spinner.getItemAtPosition(1): " + spinner.getItemAtPosition(1));
