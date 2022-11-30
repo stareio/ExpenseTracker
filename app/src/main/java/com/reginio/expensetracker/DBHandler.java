@@ -6,15 +6,23 @@ import android.database.sqlite.*;
 
 import java.util.*;
 
+// user-defined classes
+import com.reginio.expensetracker.EntryFormatter;
+import com.reginio.expensetracker.EntryValidator;
+
 public class DBHandler extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "expensesdb";
     private static final String TABLE_EXPENSES = "expensedetails";
     private static final String KEY_ID = "id";
+    private static final String KEY_TYPE = "type";
     private static final String KEY_NAME = "name";
     private static final String KEY_CAT = "category";
     private static final String KEY_AMT = "amount";
     private static final String KEY_DATE = "date";
+
+    private EntryFormatter ef;
+    private EntryValidator ev;
 
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -24,6 +32,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_EXPENSES + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_TYPE + "TEXT,"
                 + KEY_NAME + " TEXT,"
                 + KEY_CAT + "TEXT,"
                 + KEY_AMT + "REAL,"
@@ -44,14 +53,17 @@ public class DBHandler extends SQLiteOpenHelper {
 
     // CRUD Operations ========================================================
     // Add record
-    void addRecord(String name, String category, String amount, String date) {
+    void addRecord(String type, String name, String category,
+                   String amount, String date) {
         // Get data repo in write mode
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // NTS: create input validator class
+        // Check if entry is valid
+        boolean isEntryValid = ev.checkName(name) && ev.checkAmount(amount);
 
         // Create new map of values w/ column names as keys
         ContentValues cv = new ContentValues();
+        cv.put(KEY_TYPE, name);
         cv.put(KEY_NAME, name);
         cv.put(KEY_CAT, category);
         cv.put(KEY_AMT, amount);
@@ -66,8 +78,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<HashMap<String,String>> getRecordById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String,String>> recordList = new ArrayList<>();
-        String query = "SELECT name, category, amount, date FROM " + TABLE_EXPENSES;
+        String query = "SELECT type, name, category, amount, date FROM " + TABLE_EXPENSES;
         Cursor cursor = db.query(TABLE_EXPENSES, new String[]{
+                KEY_TYPE,
                 KEY_NAME,
                 KEY_CAT,
                 KEY_AMT,
@@ -77,6 +90,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToNext()) {
             HashMap<String,String> record = new HashMap<>();
+            record.put("type", cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
             record.put("name", cursor.getString(cursor.getColumnIndex(KEY_NAME)));
             record.put("category", cursor.getString(cursor.getColumnIndex(KEY_CAT)));
             record.put("amount", cursor.getString(cursor.getColumnIndex(KEY_AMT)));
@@ -98,13 +112,14 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // Edit record
-    public int updateRecord(String name, String category, String amount,
-                            String date, int id) {
+    public int updateRecord(String type, String name, String category,
+                            String amount, String date, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         // NTS: create input validator & formatter classes
 
+        cv.put(KEY_TYPE, name);
         cv.put(KEY_NAME, name);
         cv.put(KEY_CAT, category);
         cv.put(KEY_AMT, amount);

@@ -22,6 +22,10 @@
             android:label="Add Record"
             android:exported="false" />
         <activity
+            android:name=".EditRecordActivity"
+            android:label="Edit Record"
+            android:exported="false" />
+        <activity
             android:name=".DevelopersActivity"
             android:label=""
             android:exported="false" />
