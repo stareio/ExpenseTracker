@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         editBtn.setOnClickListener(view -> nextActivity(EditRecordActivity.class));
 
         checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
+        
+        homeBtn.setOnClickListener(view -> nextActivity(HomeActivity.class));
 
         homeBtn.setOnClickListener(view -> nextActivity(HomeActivity.class));
         if (isDark) {
