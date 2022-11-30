@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F5F4"
+    style="@style/SCREEN_2"
     tools:context=".SettingsActivity">
 
     <LinearLayout
@@ -23,25 +23,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                style="@style/TEXT_NORMAL"
                 android:fontFamily="@font/sf_medium"
                 android:paddingHorizontal="16dp"
                 android:text="Greeting"
                 android:textAllCaps="true"
-                android:textColor="@color/gray"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/etGreetingName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_field_upper_and_lower_shadows"
                 android:ems="10"
+                style="@style/INPUT_FIELD_UPPER_AND_LOWER"
                 android:fontFamily="@font/sf_medium"
                 android:hint="Enter name here"
                 android:inputType="textPersonName"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
-                android:textColor="@color/gray"
                 android:textSize="16sp" />
 
             <TextView
@@ -49,11 +48,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                style="@style/TEXT_NORMAL"
                 android:fontFamily="@font/sf_medium"
                 android:paddingHorizontal="16dp"
                 android:text="Change the greeting name in the homepage."
                 android:textAllCaps="false"
-                android:textColor="@color/gray"
                 android:textSize="16sp" />
 
             <Space
@@ -65,11 +64,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                style="@style/TEXT_NORMAL"
                 android:fontFamily="@font/sf_medium"
                 android:paddingHorizontal="16dp"
                 android:text="Appearance"
                 android:textAllCaps="true"
-                android:textColor="@color/gray"
                 android:textSize="16sp" />
 
             <RelativeLayout
@@ -78,16 +77,15 @@
 
                 <TextView
                     android:id="@+id/tvCurrency"
+                    style="@style/INPUT_FIELD_UPPER_AND_LOWER"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/input_field_upper_and_lower_shadows"
                     android:fontFamily="@font/sf_medium"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp"
                     android:text="Currency"
                     android:textAllCaps="false"
-                    android:textColor="@color/gray"
                     android:textSize="16sp" />
 
                 <Spinner
@@ -107,19 +105,19 @@
 
                 <TextView
                     android:id="@+id/tvAddSpecifCatSw"
+                    style="@style/INPUT_FIELD_LOWER"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_field_lower_shadow"
                     android:fontFamily="@font/sf_medium"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp"
                     android:text="Dark Mode"
                     android:textAllCaps="false"
-                    android:textColor="@color/gray"
                     android:textSize="16sp" />
 
                 <Switch
                     android:id="@+id/swDarkMode"
+                    android:theme="@style/SWITCH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -136,11 +134,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
+                style="@style/TEXT_NORMAL"
                 android:fontFamily="@font/sf_medium"
                 android:paddingHorizontal="16dp"
                 android:text="Others"
                 android:textAllCaps="true"
-                android:textColor="@color/gray"
                 android:textSize="16sp" />
 
             <RelativeLayout
@@ -151,13 +149,12 @@
                     android:id="@+id/tvDevelopers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_field_upper_and_lower_shadows"
+                    style="@style/INPUT_FIELD_UPPER_AND_LOWER"
                     android:fontFamily="@font/sf_medium"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp"
                     android:text="About the Developers"
                     android:textAllCaps="false"
-                    android:textColor="@color/gray"
                     android:textSize="16sp" />
 
                 <ImageButton
@@ -190,6 +187,7 @@
                     android:layout_marginBottom="26dp"
                     android:backgroundTint="@color/yellow"
                     android:paddingHorizontal="32dp"
+                    style="@style/TEXT_CHK_RECS_HEADING"
                     android:text="Save" />
             </LinearLayout>
 
