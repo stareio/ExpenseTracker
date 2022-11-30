@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.reginio.expensetracker">
+    package="com.reginio.expensetracker" >
 
     <application
         android:allowBackup="true"
@@ -12,43 +12,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpenseTracker"
-        tools:targetApi="31">
-
+        tools:targetApi="31" >
+        <activity
+            android:name=".CheckEntryTemplate"
+            android:exported="false" />
+        <activity
+            android:name=".CheckDateTemplate"
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
             android:name=".AddRecordActivity"
-            android:label="Add Record"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Add Record" />
         <activity
             android:name=".DevelopersActivity"
-            android:label=""
-            android:exported="false" />
+            android:exported="false"
+            android:label="" />
         <activity
             android:name=".SettingsActivity"
-            android:label="Settings"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Settings" />
         <activity
             android:name=".CheckRecordActivity"
-            android:label="Check Records"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Check Records" />
         <activity
             android:name=".SplashActivity"
-            android:label="Navigation"
-            android:exported="false" />
-
+            android:exported="false"
+            android:label="Navigation" />
+        <activity
+            android:name=".EditRecordActivity"
+            android:exported="false"
+            android:label="Edit Records" />
         <activity
             android:name=".MainActivity"
-            android:label="Navigation"
-            android:exported="true">
+            android:exported="true"
+            android:label="Navigation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
