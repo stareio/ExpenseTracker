@@ -11,9 +11,11 @@
     <!-- customized colors -->
     <color name="dark_green">#203731</color>
     <color name="yellow">#FFB612</color>
+    <color name="dark_orange">#FFC18C14</color>
     <color name="light_gray">#F3F5F4</color>
     <color name="gray">#656C6C</color>
     <color name="edittext_shadow">#E6E6E6</color>
+
 
     <!-- shadow colors    -->
     <color name="light_font">#FBFBFB</color>

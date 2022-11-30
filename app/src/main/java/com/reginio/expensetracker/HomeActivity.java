@@ -5,27 +5,94 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.*;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+
+import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.models.PieModel;
 
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
+    //Instantiations
+
+    //Date Picker Object
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
+    private TextView incomeText, expenseText;
+    private ImageView settingBtn;
+    String totalIncome = "10000";
+    String totalExpense = "500";
+
+    //Pie Chart Object
+    PieChart pieChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        initDatePicker();
+        //Find ID
         dateButton = findViewById(R.id.datePicker_btn);
+        incomeText = findViewById(R.id.income_txt);
+        expenseText = findViewById(R.id.expenses_txt);
+        settingBtn = findViewById(R.id.setting_img);
+
+        //Date Picker Button
+        initDatePicker();
         dateButton.setText(getTodaysDate());
+
+        //Pie Chart Implementation
+        pieChart = findViewById(R.id.piechart);
+
+        //add data to piechart
+        setData();
+
+        //Set Text from value
+        incomeText.setText(totalIncome);
+        expenseText.setText(totalExpense);
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    //FOR PIE CHART
+    private void setData() {
+
+        pieChart.addPieSlice(
+                new PieModel(
+                        "Income",
+                        //Integer.parseInt(incomeText.getText().toString()),
+                        Integer.parseInt(totalIncome),
+                        Color.parseColor("#856214")
+                )
+        );
+        pieChart.addPieSlice(
+                new PieModel(
+                        "Income",
+                        //Integer.parseInt(expenseText.getText().toString()),
+                        Integer.parseInt(totalExpense),
+                        Color.parseColor("#213933")
+                )
+        );
+
+        //To animate pie chart
+        pieChart.startAnimation();
+    }
+
+    //FOR DATE PICKER
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -80,4 +147,5 @@ public class HomeActivity extends AppCompatActivity {
     public void openDatePicker(View view) {
         datePickerDialog.show();
     }
+
 }
