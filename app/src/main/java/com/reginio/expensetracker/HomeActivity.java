@@ -2,23 +2,18 @@ package com.reginio.expensetracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.app.*;
 import android.app.DatePickerDialog.*;
-import android.content.Intent;
+import android.content.*;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import android.widget.*;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
-import java.util.Calendar;
+import java.util.*;
 
 public class HomeActivity extends AppCompatActivity {
     //Instantiations
