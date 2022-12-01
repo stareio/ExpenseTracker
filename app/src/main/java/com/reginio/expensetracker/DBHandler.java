@@ -21,9 +21,6 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_AMT = "amount";
     private static final String KEY_DATE = "date";
 
-    private EntryFormatter ef;
-    private EntryValidator ev;
-
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -57,9 +54,6 @@ public class DBHandler extends SQLiteOpenHelper {
                    String amount, String date) {
         // Get data repo in write mode
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Check if entry is valid
-        boolean isEntryValid = ev.checkName(name) && ev.checkAmount(amount);
 
         // Create new map of values w/ column names as keys
         ContentValues cv = new ContentValues();

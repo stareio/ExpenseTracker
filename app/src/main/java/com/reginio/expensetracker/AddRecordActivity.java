@@ -1,26 +1,23 @@
 package com.reginio.expensetracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.*;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.app.*;
 import android.content.*;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.*;
 import android.view.View;
 import android.widget.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 
 public class AddRecordActivity extends AppCompatActivity {
 
-    TextView addExpIncTv, addCatSpnrTv, addDateTv;
+    TextView addExpIncTv, addCatSpnrTv, addDateTv, addSpecifCatTv;
+    EditText addNameEt, addAmtEt;
     Spinner addExpIncSpnr, addCatSpnr;
     Switch addSpecifCatSw;
-    DatePickerDialog dpd;
-    Button addDateBtn;
+    Button addDateBtn, addRecordBtn;
 
     String LOG_TAG = "Debugging";
 
@@ -33,15 +30,21 @@ public class AddRecordActivity extends AppCompatActivity {
     int addDay;
 
     SharedPreferences sp;
+    EntryFormatter ef;
+    EntryValidator ev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
 
+        addNameEt = findViewById(R.id.etAddName);
+        addAmtEt = findViewById(R.id.etAddAmt);
+
         addExpIncTv = findViewById(R.id.tvAddExpInc);
         addCatSpnrTv = findViewById(R.id.tvAddCatSpnr);
         addDateTv = findViewById(R.id.tvAddDate);
+        addSpecifCatTv = findViewById(R.id.tvAddSpecifCatSw);
 
         addExpIncSpnr = findViewById(R.id.spnrAddExpInc);
         addCatSpnr = findViewById(R.id.spnrAddCat);
@@ -49,12 +52,16 @@ public class AddRecordActivity extends AppCompatActivity {
         addSpecifCatSw = findViewById(R.id.swAddSpecifCat);
         addDateBtn = findViewById(R.id.btnAddDate);
 
+        addRecordBtn = findViewById(R.id.btnAddRecord);
+
+        ef = new EntryFormatter();
+        ev = new EntryValidator();
+
         // populate the dropdown list for expenses/income
         getExIncSpinner();
 
-        // date picker
-        initDatePicker();
-        addDateBtn.setText(getDateToday());
+        // set default date to current date
+        getDateToday();
 
         // get selected item in expense/income spinner
         addExpIncSpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -62,7 +69,21 @@ public class AddRecordActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
                                        int position, long id) {
                 entryType = addExpIncSpnr.getSelectedItem().toString();
+                Log.d(LOG_TAG, "entryType: " + entryType);
                 addExpIncTv.setText(entryType);
+
+                if (entryType.equals("Income")) {
+                    isIncome = true;
+                } else {
+                    isIncome = false;
+                }
+
+                Log.d(LOG_TAG, "isIncome: " + isIncome);
+
+                // populate category spinner
+                // if expense is selected, items are car, food, drinks, etc.
+                // if income is selected, items are commissions, salary, pocket money, etc.
+                getCatSpinner();
             }
 
             @Override
@@ -72,7 +93,7 @@ public class AddRecordActivity extends AppCompatActivity {
         });
 
         // get value of switch
-        // if enabled, enable category spinner
+        // if enabled, enable and populate category spinner
         addSpecifCatSw.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 addCatSpnr.setEnabled(true);
@@ -89,7 +110,7 @@ public class AddRecordActivity extends AppCompatActivity {
             }
 
             isSpecifCategory = isChecked;
-            getCatSpinner();
+            Log.d(LOG_TAG, "isSpecifCategory: " + isSpecifCategory);
         });
 
         // get selected item in category spinner
@@ -97,13 +118,110 @@ public class AddRecordActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
                                        int position, long id) {
-                entryType = addCatSpnr.getSelectedItem().toString();
-                addCatSpnrTv.setText(entryType);
+                category = addCatSpnr.getSelectedItem().toString();
+                addCatSpnrTv.setText(category);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 entryType = "";
+            }
+        });
+
+        // date picker
+        addDateBtn.setOnClickListener(view -> {
+            final Calendar cal = Calendar.getInstance();
+
+            addYear = cal.get(Calendar.YEAR);
+            addMonth = cal.get(Calendar.MONTH);
+            addDay = cal.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dpd = new DatePickerDialog(
+                    AddRecordActivity.this,
+                    (dp, year, month, day) -> {
+                        Log.d(LOG_TAG, "year: " + year);
+                        Log.d(LOG_TAG, "month: " + month + " + 1 :)");
+                        Log.d(LOG_TAG, "day: " + day);
+
+                        // update TextView for date
+                        addDateTv.setText(ef.formatDate(year, month, day));
+                    },
+                    // pass selected date in date picker
+                    addYear, addMonth, addDay
+            );
+
+            // show date picker dialog
+            dpd.show();
+        });
+
+        // NTS: add user-defined method to display current date as default
+        // addDateTv.setText(ef.formatDate(year, month, day));
+
+        // submit inputs
+        addRecordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = addNameEt.getText().toString();
+                String amount = addAmtEt.getText().toString();
+                String date = addYear + "-" + addMonth + "-" + addDay;
+
+                Log.d(LOG_TAG, "=== Values NOT stored in database yet ===========");
+                Log.d(LOG_TAG, "entryType: " + entryType);
+                Log.d(LOG_TAG, "name: " + name);
+                Log.d(LOG_TAG, "category: " + category);
+                Log.d(LOG_TAG, "date: " + date);
+                Log.d(LOG_TAG, "amount: " + amount);
+
+                // Check if entry is valid
+                boolean checkName = ev.checkName(name);
+                boolean checkAmt = ev.checkAmount(amount);
+                boolean isEntryValid = checkName && checkAmt;
+                Log.d(LOG_TAG, "isEntryValid: " + isEntryValid);
+
+                // check for invalid inputs
+                if (isEntryValid) {
+                    // if specific category is not toggled
+                    if (!isSpecifCategory) {
+                        category = "";
+                    }
+
+                    // format amount
+                    // store in database
+
+                    Log.d(LOG_TAG, "=== Values stored in database ===================");
+                    Log.d(LOG_TAG, "entryType: " + entryType);
+                    Log.d(LOG_TAG, "name: " + name);
+                    Log.d(LOG_TAG, "category: " + category);
+                    Log.d(LOG_TAG, "date: " + date);
+                    Log.d(LOG_TAG, "amount: " + amount);
+
+                    // toast for successful submission
+                    Toast.makeText(getApplicationContext(),
+                            "Entry has been submitted successfully!",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    String message = "Please provide ";
+                    List<String> invalidInputs = new ArrayList<>();
+
+                    if (!checkName) {
+                        invalidInputs.add("a name within 20 characters");
+                    } if (!checkAmt) {
+                        invalidInputs.add("an amount between 1-10 digits");
+                    }
+
+                    String separator = "";
+                    for (String s : invalidInputs) {
+                        message += (separator + s);
+                        separator = ", and ";
+                    }
+
+                    Log.d(LOG_TAG, message + ".");
+
+                    // toast for unsuccessful submission
+                    Toast.makeText(getApplicationContext(),
+                            message + ".",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -118,6 +236,7 @@ public class AddRecordActivity extends AppCompatActivity {
         }
     }
 
+    // user-defined methdos =========================================================
     private void getExIncSpinner() {
         // create a list of items for each spinner
         String[] itemsExpInc = new String[]{"Expense", "Income"};
@@ -134,25 +253,23 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private void getCatSpinner() {
-        String[] itemsCat;
+        List<String> itemsCat = new ArrayList<>();
+        // removes old items in spinner
+//        itemsCat.clear();
 
         if (isIncome) {
-            itemsCat = new String[]{
-                    "Salary",
-                    "Savings",
-                    "Commissions",
-                    "Pocket Money"
-            };
+            itemsCat.add("Commissions");
+            itemsCat.add("Pocket Money");
+            itemsCat.add("Salary");
+            itemsCat.add("Savings");
         } else {
-            itemsCat = new String[]{
-                    "Food",
-                    "Drinks",
-                    "Groceries",
-                    "Rental",
-                    "Commute",
-                    "Mobile Account",
-                    "Entertainment"
-            };
+            itemsCat.add("Car");
+            itemsCat.add("Commute");
+            itemsCat.add("Drinks");
+            itemsCat.add("Food");
+            itemsCat.add("Groceries");
+            itemsCat.add("Medicine");
+            itemsCat.add("Rental");
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -161,56 +278,19 @@ public class AddRecordActivity extends AppCompatActivity {
                 itemsCat
         );
 
+        // update spinner items
         addCatSpnr.setAdapter(adapter);
     }
 
-    private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dsl = (datePicker, year, month, day) -> {
-            month += 1;
-            String date = getDateString(year, month, day);
-            addDateTv.setText(date);
+    private void getDateToday() {
+        final Calendar cal = Calendar.getInstance();
 
-            addYear = year;
-            addMonth = month;
-            addDay = day;
+        addYear = cal.get(Calendar.YEAR);
+        addMonth = cal.get(Calendar.MONTH);
+        addDay = cal.get(Calendar.DAY_OF_MONTH);
 
-            Log.d(LOG_TAG, "addYear: " + addYear);
-            Log.d(LOG_TAG, "addMonth: " + addMonth);
-            Log.d(LOG_TAG, "addDay: " + addDay);
-        };
-
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        dpd = new DatePickerDialog(this, dsl, year, month, day);
-    }
-
-    private String getDateString(int year, int month, int day) {
-        return formatMonth(month) + " " + day + ", " + year;
-    }
-
-    private String formatMonth(int month) {
-        String[] monthList = {
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-        };
-
-        return monthList[month-1];
-    }
-
-    private String getDateToday() {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH) + 1;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        return getDateString(year, month, day);
-    }
-
-    public void openDatePicker(View view) {
-        dpd.show();
+        // set default date to current date
+        addDateTv.setText(ef.formatDate(addYear, addMonth, addDay));
     }
 }
 
@@ -219,5 +299,7 @@ Reference
 Dropdown list: https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
 Customized spinner: https://www.youtube.com/watch?v=N8GfosWTt44
 Set opacity for TextView: https://stackoverflow.com/questions/38434108/set-opacity-for-textview
-Popup date picker: https://www.youtube.com/watch?v=qCoidM98zNk
+Date picker: https://www.geeksforgeeks.org/datepicker-in-android/
+Date formatter, Display current date: https://www.youtube.com/watch?v=qCoidM98zNk
+Print elements from array with comma in between: https://stackoverflow.com/questions/18279622/print-out-elements-from-an-array-with-a-comma-between-the-elements
  */
