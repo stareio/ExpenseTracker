@@ -116,8 +116,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Current Settings Saved!",
                     Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Exception: " + e);
         }
     }
 
@@ -150,7 +150,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 currencySpnr.setSelection(getIndex(currencySpnr, currToRead), true);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, "Exception: " + e);
             }
         } else {
             Log.d(LOG_TAG, "Settings file does NOT exist");

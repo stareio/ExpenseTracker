@@ -29,11 +29,11 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_EXPENSES + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + KEY_TYPE + "TEXT,"
+                + KEY_TYPE + " TEXT,"
                 + KEY_NAME + " TEXT,"
-                + KEY_CAT + "TEXT,"
-                + KEY_AMT + "REAL,"
-                + KEY_DATE + "TEXT"
+                + KEY_CAT + " TEXT,"
+                + KEY_AMT + " TEXT,"
+                + KEY_DATE + " TEXT"
                 + ")";
 
         db.execSQL(CREATE_TABLE);
@@ -57,7 +57,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // Create new map of values w/ column names as keys
         ContentValues cv = new ContentValues();
-        cv.put(KEY_TYPE, name);
+        cv.put(KEY_TYPE, type);
         cv.put(KEY_NAME, name);
         cv.put(KEY_CAT, category);
         cv.put(KEY_AMT, amount);
@@ -69,6 +69,26 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // Retrieve records
+    public ArrayList<HashMap<String, String>> getRecords() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
+        String query = "SELECT type, name, category, amount, date FROM " + TABLE_EXPENSES;
+        Cursor cursor = db.rawQuery(query,null);
+
+        while (cursor.moveToNext()){
+            HashMap<String,String> record = new HashMap<>();
+            record.put("type", cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
+            record.put("name", cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+            record.put("category", cursor.getString(cursor.getColumnIndex(KEY_CAT)));
+            record.put("amount", cursor.getString(cursor.getColumnIndex(KEY_AMT)));
+            record.put("date", cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+            recordList.add(record);
+        }
+
+        return recordList;
+    }
+
+    // Retrieve records based on id
     public ArrayList<HashMap<String,String>> getRecordById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String,String>> recordList = new ArrayList<>();
@@ -113,7 +133,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // NTS: create input validator & formatter classes
 
-        cv.put(KEY_TYPE, name);
+        cv.put(KEY_TYPE, type);
         cv.put(KEY_NAME, name);
         cv.put(KEY_CAT, category);
         cv.put(KEY_AMT, amount);
