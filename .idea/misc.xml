@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< Updated upstream
         <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_check_date_template.xml" value="0.25" />
         <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_check_entry_template.xml" value="0.8" />
         <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_check_record.xml" value="0.25" />
         <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_splash.xml" value="0.16983695652173914" />
+=======
+        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_check_record.xml" value="0.25" />
+        <entry key="..\:/GitHub/ExpenseTracker/app/src/main/res/layout/activity_main.xml" value="0.264" />
+>>>>>>> Stashed changes
         <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/drawable/ic_baseline_directions_car_24.xml" value="0.213" />
         <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1745" />
         <entry key="..\:/Users/CG/Documents/ExpenseTracker/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1835" />
