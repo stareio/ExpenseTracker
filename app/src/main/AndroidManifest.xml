@@ -47,10 +47,6 @@
             android:exported="false"
             android:label="Navigation" />
         <activity
-            android:name=".EditRecordActivity"
-            android:exported="false"
-            android:label="Edit Records" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="Navigation" >

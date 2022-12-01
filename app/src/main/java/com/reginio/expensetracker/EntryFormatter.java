@@ -24,6 +24,19 @@ public class EntryFormatter {
         Log.d(LOG_TAG, "formatAmount: " + amount);
         return amount;
     }
+
+    public String formatDate(int year, int month, int day) {
+        return formatMonth(month) + " " + day + ", " + year;
+    }
+
+    public String formatMonth(int month) {
+        String[] monthList = {
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        };
+
+        return monthList[month];
+    }
 }
 
 /*
