@@ -8,6 +8,9 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     Button settingsBtn, addBtn, editBtn, checkBtn, homeBtn;
@@ -38,6 +41,22 @@ public class MainActivity extends AppCompatActivity {
         checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
         
         homeBtn.setOnClickListener(view -> nextActivity(HomeActivity.class));
+
+        // == DB testing ===========================================================================
+        ListView lv = findViewById(R.id.test_list);
+
+        // NTS: listview not auto update when going from add record to main activity
+        // need to refresh app to show new records
+        // also need formatting in displaying values (ex: for expenses, need negative sign)
+
+        DBHandler db = new DBHandler(this);
+        ArrayList<HashMap<String,String>> recordsList = db.getRecords();
+
+        ListAdapter adapter = new SimpleAdapter(MainActivity.this, recordsList,
+                R.layout.list_record, new String[]{"category","name","expense"},
+                new int[]{R.id.tvRecordCategory, R.id.tvRecordName, R.id.tvRecordAmount}
+        );
+        lv.setAdapter(adapter);
 
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
