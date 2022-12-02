@@ -92,6 +92,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<HashMap<String,String>> getRecordById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String,String>> recordList = new ArrayList<>();
+        // NTS: add query for getting records from specific day
         String query = "SELECT type, name, category, amount, date FROM " + TABLE_EXPENSES;
         Cursor cursor = db.query(TABLE_EXPENSES, new String[]{
                 KEY_TYPE,

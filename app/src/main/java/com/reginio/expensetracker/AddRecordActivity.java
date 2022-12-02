@@ -137,15 +137,13 @@ public class AddRecordActivity extends AppCompatActivity {
 
         // date picker
         addDateBtn.setOnClickListener(view -> {
-            final Calendar cal = Calendar.getInstance();
-
-            addYear = cal.get(Calendar.YEAR);
-            addMonth = cal.get(Calendar.MONTH);
-            addDay = cal.get(Calendar.DAY_OF_MONTH);
-
             DatePickerDialog dpd = new DatePickerDialog(
                     AddRecordActivity.this,
                     (dp, year, month, day) -> {
+                        addYear = year;
+                        addMonth = month;
+                        addDay = day;
+
                         Log.d(LOG_TAG, "year: " + year);
                         Log.d(LOG_TAG, "month: " + month + " + 1 :)");
                         Log.d(LOG_TAG, "day: " + day);
@@ -201,6 +199,9 @@ public class AddRecordActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "date: " + date);
                     Log.d(LOG_TAG, "amount: " + amount);
 
+                    // go back to previous page
+                    onBackPressed();
+
                     // toast for successful submission
                     Toast.makeText(getApplicationContext(),
                             "Entry has been submitted successfully!",
@@ -212,7 +213,7 @@ public class AddRecordActivity extends AppCompatActivity {
                     if (!checkName) {
                         invalidInputs.add("a name within 20 characters");
                     } if (!checkAmt) {
-                        invalidInputs.add("an amount between 1-10 digits");
+                        invalidInputs.add("an amount > 0 and digits between 1-10");
                     }
 
                     String separator = "";

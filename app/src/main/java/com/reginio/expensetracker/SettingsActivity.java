@@ -147,7 +147,6 @@ public class SettingsActivity extends AppCompatActivity {
 
                 // update the displayed username and currency
                 nameEt.setText(nameToRead);
-
                 currencySpnr.setSelection(getIndex(currencySpnr, currToRead), true);
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Exception: " + e);
@@ -213,7 +212,7 @@ Customized spinner: https://www.youtube.com/watch?v=N8GfosWTt44
 Get switch value: https://stackoverflow.com/questions/26676367/how-to-get-switch-value-in-android
 Get switch value and store in database: https://stackoverflow.com/questions/41374946/how-to-get-switch-button-value-and-stored-in-database
 Switch on/off event listener: https://stackoverflow.com/questions/11278507/android-widget-switch-on-off-event-listener
-Set spinner positiono: https://stackoverflow.com/questions/8769368/how-to-set-position-in-spinner
+Set spinner position: https://stackoverflow.com/questions/8769368/how-to-set-position-in-spinner
 Get spinner selected item: https://stackoverflow.com/questions/1337424/android-spinner-get-the-selected-item-change-event
 Get position of each String value in spinner: https://stackoverflow.com/questions/13112020/android-spinner-get-position-of-string-in-code-behind
 Dark and light mode: https://www.youtube.com/watch?v=_XN-c5Yz0wk

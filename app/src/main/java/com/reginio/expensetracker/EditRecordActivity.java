@@ -3,20 +3,16 @@ package com.reginio.expensetracker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
+import android.app.*;
+import android.content.*;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.*;
 import android.view.View;
 import android.widget.*;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class EditRecordActivity extends AppCompatActivity {
 
@@ -69,11 +65,11 @@ public class EditRecordActivity extends AppCompatActivity {
         // populate the dropdown list for expenses/income
         getExIncSpinner();
 
-        // set date to old date
-        // set everything!!
-
         // set currency
         getCurrency();
+
+        // get record and display its values on each input widget like EditText, Spinner, etc.
+        getRecord();
 
         // get selected item in expense/income spinner
         editExpIncSpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -81,8 +77,8 @@ public class EditRecordActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
                                        int position, long id) {
                 entryType = editExpIncSpnr.getSelectedItem().toString();
-                Log.d(LOG_TAG, "entryType: " + entryType);
                 editExpIncTv.setText(entryType);
+                Log.d(LOG_TAG, "entryType: " + entryType);
 
                 if (entryType.equals("Income")) {
                     isIncome = true;
@@ -100,7 +96,6 @@ public class EditRecordActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                entryType = "";
             }
         });
 
@@ -136,21 +131,18 @@ public class EditRecordActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                entryType = "";
             }
         });
 
         // date picker
         editDateBtn.setOnClickListener(view -> {
-            final Calendar cal = Calendar.getInstance();
-
-            editYear = cal.get(Calendar.YEAR);
-            editMonth = cal.get(Calendar.MONTH);
-            editDay = cal.get(Calendar.DAY_OF_MONTH);
-
             DatePickerDialog dpd = new DatePickerDialog(
                     EditRecordActivity.this,
                     (dp, year, month, day) -> {
+                        editYear = year;
+                        editMonth = month;
+                        editDay = day;
+
                         Log.d(LOG_TAG, "year: " + year);
                         Log.d(LOG_TAG, "month: " + month + " + 1 :)");
                         Log.d(LOG_TAG, "day: " + day);
@@ -208,6 +200,9 @@ public class EditRecordActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "date: " + date);
                     Log.d(LOG_TAG, "amount: " + amount);
 
+                    // go back to previous page
+                    onBackPressed();
+
                     // toast for successful submission
                     Toast.makeText(getApplicationContext(),
                             "Record has been edited successfully!",
@@ -219,7 +214,7 @@ public class EditRecordActivity extends AppCompatActivity {
                     if (!checkName) {
                         invalidInputs.add("a name within 20 characters");
                     } if (!checkAmt) {
-                        invalidInputs.add("an amount between 1-10 digits");
+                        invalidInputs.add("an amount > 0 and digits between 1-10");
                     }
 
                     String separator = "";
@@ -229,6 +224,9 @@ public class EditRecordActivity extends AppCompatActivity {
                     }
 
                     Log.d(LOG_TAG, message + ".");
+
+                    // go back to previous page
+                    onBackPressed();
 
                     // toast for unsuccessful submission
                     Toast.makeText(getApplicationContext(),
@@ -250,6 +248,67 @@ public class EditRecordActivity extends AppCompatActivity {
     }
 
     // user-defined methdos =========================================================
+    private void getRecord() {
+        // NTS: retrieve recordId from check records page or home page
+        recordId = 1;   // for debugging
+        String type = "", name = "", amount = "", date = "";
+
+        // retrieve record from database
+        DBHandler db = new DBHandler(this);
+        ArrayList<HashMap<String,String>> record = db.getRecordById(recordId);
+
+        for (Map<String,String> map : record) {
+            type = map.get("type");
+            name = map.get("name");
+            category = map.get("category");
+            amount = map.get("amount");
+            date = map.get("date");
+        }
+
+        Log.d(LOG_TAG, "== Entry values retrieved for editing ===============");
+        Log.d(LOG_TAG, "type: " + type);
+        Log.d(LOG_TAG, "name: " + name);
+        Log.d(LOG_TAG, "category: " + category);
+        Log.d(LOG_TAG, "date: " + date);
+        Log.d(LOG_TAG, "amount: " + amount);
+
+        // set the retrieved values on each input widget
+        entryType = type;
+        editExpIncSpnr.setSelection(getIndex(editExpIncSpnr, entryType), true);
+        editExpIncTv.setText(entryType);
+
+        editNameEt.setText(name);
+
+        if (!category.equals("")) {
+            isSpecifCategory = true;
+            editSpecifCatSw.setChecked(true);
+
+            // set opacity to 100%
+            editCatSpnrTv.setAlpha(1f);
+            editCatSpnr.setAlpha(1f);
+
+            if (type.equals("Income")) {
+                isIncome = true;
+            }
+
+            editCatSpnrTv.setText(category);
+            getCatSpinner();
+            editCatSpnr.setSelection(getIndex(editCatSpnr, category), true);
+        } else {
+            getCatSpinner();
+            editCatSpnr.setEnabled(false);
+        }
+
+        getDateRecorded(ef.splitDate(date));
+        // datepicker
+
+        editAmtEt.setText(amount);
+    }
+
+    private void editRecord() {
+
+    }
+
     private void getExIncSpinner() {
         // create a list of items for each spinner
         String[] itemsExpInc = new String[]{"Expense", "Income"};
@@ -300,6 +359,15 @@ public class EditRecordActivity extends AppCompatActivity {
         }
     }
 
+    private void getDateRecorded(int[] dateVals) {
+        editYear = dateVals[0];
+        editMonth = dateVals[1];
+        editDay = dateVals[2];
+
+        // set default date to current date
+        editDateTv.setText(ef.formatDate(editYear, editMonth, editDay));
+    }
+
     private void getCurrency() {
         // check if settings file exists
         if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
@@ -326,4 +394,26 @@ public class EditRecordActivity extends AppCompatActivity {
             editAmtCurrTv.setText("PHP");
         }
     }
+
+    private int getIndex(Spinner spinner, String myString){
+        int index = 0;
+//        Log.d(LOG_TAG, "spinner.getItemAtPosition(0): " + spinner.getItemAtPosition(0));
+//        Log.d(LOG_TAG, "spinner.getItemAtPosition(1): " + spinner.getItemAtPosition(1));
+
+        for (int i=0; i<spinner.getCount(); i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                Log.d(LOG_TAG, "spinner.getItemAtPosition(i): " + spinner.getItemAtPosition(i));
+                index = i;
+            }
+        }
+
+        Log.d(LOG_TAG, "spnrIndex: " + index);
+        return index;
+    }
 }
+
+/*
+References
+Retrieve values in ArrayList<HashMap<key,value>>: https://stackoverflow.com/questions/42797663/how-to-get-specific-values-from-an-arraylist-of-hashmaps
+Set spinner position: https://stackoverflow.com/questions/8769368/how-to-set-position-in-spinner
+*/
