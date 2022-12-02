@@ -186,7 +186,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="26dp"
                     android:paddingHorizontal="32dp"
-                    style="@style/TEXT_CHK_RECS_HEADING"
                     android:text="Save" />
             </LinearLayout>
 
