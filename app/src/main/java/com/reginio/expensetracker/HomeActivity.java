@@ -53,9 +53,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         setContentView(R.layout.activity_home);
 
         //Find ID
-        incomeText = findViewById(R.id.income_txt);
-        expenseText = findViewById(R.id.expenses_txt);
-
         //Item list
         lv = (ListView) findViewById(R.id.lvHomeRecords);
         //DB handler
@@ -79,6 +76,8 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         setData();
 
         //Set Text from value
+        incomeText = findViewById(R.id.income_txt);
+        expenseText = findViewById(R.id.expenses_txt);
         incomeText.setText(totalIncome);
         expenseText.setText(totalExpense);
 
@@ -90,10 +89,12 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         });
 
         datePickerBtn = findViewById(R.id.datePicker_btn);
+        datePickerBtn.setText(getTodaysDate() + " ▼");
         datePickerBtn.setOnClickListener(view -> {
             Intent toCheckRec = new Intent(HomeActivity.this, CheckRecordActivity.class);
             startActivity(toCheckRec);
         });
+
 
         //List of Records
         lv = findViewById(R.id.lvHomeRecords);
@@ -148,18 +149,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
         return makeDateString(day,month,year);
-    }
-
-    private void initDatePicker() {
-            DatePickerDialog.OnDateSetListener dateSetListener = new OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    month = month + 1;
-                    String date = makeDateString(day, month, year);
-                    datePickerBtn.setText(date);
-                }
-            };
-
     }
 
     private String makeDateString(int day, int month, int year) {
