@@ -68,8 +68,11 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
         }
 
         // set values in each widget
-        // NTS: set image based on category
         String category = (recordsList.get(position)).get("category");
+
+        // NTS: set image based on category
+        // switch case
+
         if (category.equals("")) {
             viewHolder.recordCategoryTv.setTypeface(null, Typeface.ITALIC);
             viewHolder.recordCategoryTv.setText("N/A");

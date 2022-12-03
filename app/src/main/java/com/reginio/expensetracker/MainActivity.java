@@ -19,9 +19,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
 
-    Button settingsBtn, addBtn, checkBtn, homeBtn;
+    Button addBtn, checkBtn, homeBtn;
     ListView lv;
-    Spinner recordSpnr;
 
     ArrayList<String> recordIds;
     RecordAdapter recordAdapter;
@@ -49,15 +48,12 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        settingsBtn = (Button) findViewById(R.id.btnSettings);
         addBtn = (Button) findViewById(R.id.btnAdd);
         checkBtn = (Button) findViewById(R.id.btnCheck);
         homeBtn = (Button) findViewById(R.id.btnHome);
 
         sp = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         Boolean isDark = sp.getBoolean("night", false);
-
-        settingsBtn.setOnClickListener(view -> nextActivity(SettingsActivity.class));
 
         addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
 
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
 
         // == DB testing ===========================================================================
         lv = findViewById(R.id.test_list);
-        recordSpnr = findViewById(R.id.spnrRecord);
 
         getList();  // retrieve list of records
 
