@@ -3,6 +3,7 @@ package com.reginio.expensetracker;
 import android.content.*;
 import android.database.Cursor;
 import android.database.sqlite.*;
+import android.util.Log;
 
 import java.util.*;
 
@@ -20,6 +21,8 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String KEY_CAT = "category";
     private static final String KEY_AMT = "amount";
     private static final String KEY_DATE = "date";
+
+    String LOG_TAG = "Debugging";
 
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -89,8 +92,8 @@ public class DBHandler extends SQLiteOpenHelper {
         return recordList;
     }
 
-    // Retrieve records based on id
-    public ArrayList<HashMap<String, String>> getRecordById(int id) {
+    // Retrieve list of records based on id
+    public ArrayList<HashMap<String,String>> getRecordById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
         // NTS: add query for getting records from specific day
