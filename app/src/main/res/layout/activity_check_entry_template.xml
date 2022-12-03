@@ -15,7 +15,7 @@
         android:layout_marginVertical="10dp">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/check_Category"
             android:layout_width="156dp"
             android:layout_height="19dp"
             android:layout_marginHorizontal="10dp"
@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias="0.225" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/check_Name"
             android:layout_width="157dp"
             android:layout_height="19dp"
             android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
             tools:srcCompat="@drawable/menu" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/check_Amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"

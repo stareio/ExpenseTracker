@@ -50,7 +50,7 @@ public class CheckRecordActivity extends AppCompatActivity {
         dateButton.setText(getTodaysDate());
 
         lv = (ListView) findViewById(R.id.list);
-        getDateList();
+        getDateEntryList(getTodaysDate());
 
     }
 
@@ -58,18 +58,18 @@ public class CheckRecordActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        getDateList();
+        getDateEntryList(getTodaysDate());
         ((BaseAdapter) adapter).notifyDataSetChanged();
     }
 
-    private void getDateList() {
+    private void getDateEntryList(String date) {
         DBHandler db = new DBHandler(this);
-        ArrayList<HashMap<String,String>> dateList = db.getDates();
-        Log.d(LOG_TAG, "datesList: " + dateList);
+        ArrayList<HashMap<String,String>> recordList = db.getRecordByDate(date);
+        Log.d(LOG_TAG, "recordList: " + recordList);
 
-        adapter = new SimpleAdapter(CheckRecordActivity.this, dateList,
-                R.layout.activity_check_date_template, new String[]{"date"},
-                new int[]{R.id.Date}
+        adapter = new SimpleAdapter(CheckRecordActivity.this, recordList,
+                R.layout.activity_check_entry_template, new String[]{"name", "category", "amount"},
+                new int[]{R.id.check_Name, R.id.check_Category, R.id.check_Amount}
         );
         lv.setAdapter(adapter);
     }
