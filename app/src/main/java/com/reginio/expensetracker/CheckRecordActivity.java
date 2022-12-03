@@ -21,9 +21,12 @@ import android.widget.SimpleAdapter;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class CheckRecordActivity extends AppCompatActivity {
@@ -59,7 +62,7 @@ public class CheckRecordActivity extends AppCompatActivity {
         dateButton.setText(getTodaysDate());
 
         lv = (ListView) findViewById(R.id.list);
-        getDateEntryList(getTodaysDate());
+        getDateEntryList(getTodaysDateInput());
 
     }
 
@@ -87,6 +90,15 @@ public class CheckRecordActivity extends AppCompatActivity {
         return makeDateString(day,month,year);
     }
 
+    private String getTodaysDateInput() {
+        Calendar today = Calendar.getInstance();
+        int year = today.get(Calendar.YEAR);
+        int month = today.get(Calendar.MONTH);
+        month = month + 1;
+        int day = today.get(Calendar.DAY_OF_MONTH);
+        return year + "-" + month + "-" + day;
+    }
+
     private void initDatePicker() {
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -96,8 +108,9 @@ public class CheckRecordActivity extends AppCompatActivity {
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
 
-                makeInputDate(day, month, year);
+                getDateEntryList(makeInputDate(day, month, year));
                 Log.d(LOG_TAG, "Selected Date: " + date);
+
 
             }
         };
@@ -115,7 +128,7 @@ public class CheckRecordActivity extends AppCompatActivity {
 
 
     private String makeInputDate(int day, int month, int year) {
-        String output =  year + "-" + day + "-" + month;
+        String output =  year + "-" + month + "-" + day;
         Log.d(LOG_TAG, "Input Date: " + output);
         return output;
     }
