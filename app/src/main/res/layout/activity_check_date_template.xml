@@ -29,13 +29,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Start of Actual Repeated Object -->
-
-        <!-- Sample Object 1  -->
-
-        <!-- Sample Object 2  -->
-
-        <!-- Sample Object 3  -->
+        <ListView
+            android:id="@+id/Entry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
