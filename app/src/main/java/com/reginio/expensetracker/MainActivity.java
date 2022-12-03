@@ -10,6 +10,9 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
     RecordAdapter recordAdapter;
 
     String LOG_TAG = "Debugging";
+    String currency;
 
     Intent intent;
     SharedPreferences sp;
@@ -66,21 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
         recordSpnr = findViewById(R.id.spnrRecord);
 
         getList();  // retrieve list of records
-//        populateRecordSpinner();    // populate spinner for edit & delete
-
-        // NTS: add formatting in some values (ex: for expenses, need negative sign & P/$)
-
-        // get selected item in record spinner
-//        recordSpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
-//                                       int position, long id) {
-//                modify = recordSpnr.getSelectedItem().toString();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) { }
-//        });
 
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -101,10 +90,13 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
             Log.d(LOG_TAG, "Stored id " + map.get("id") + " at index " + count);
             count++;
         }
-
         Log.d(LOG_TAG, "recordIds after for loop:" + recordIds);
 
-        recordAdapter = new RecordAdapter(MainActivity.this, recordsList, this);
+        // get currency set in app
+        getCurrency();
+
+        recordAdapter = new RecordAdapter(MainActivity.this, recordsList,
+                                            currency, this);
         lv.setAdapter(recordAdapter);
 
         db.close();
@@ -122,8 +114,6 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
             Intent i = new Intent(MainActivity.this, EditRecordActivity.class);
             i.putExtra("id", recordId);
             startActivity(i);
-
-            recordIds.clear();
         } else if (modify.equals("Delete")) {
             // delete the record from the database
             Log.d(LOG_TAG, "Record deleted");
@@ -141,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
     @Override
     protected void onResume() {
         super.onResume();
+        recordIds.clear();
         getList();
         ((BaseAdapter) recordAdapter).notifyDataSetChanged();
     }
@@ -148,6 +139,33 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
     private void nextActivity(Class dest) {
         intent = new Intent(MainActivity.this, dest);
         startActivity(intent);
+    }
+
+    private void getCurrency() {
+        // check if settings file exists
+        if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
+            try {
+                FileInputStream fis = openFileInput("ExpenseTracker_Settings.txt");
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+
+                // only retrieve stored currency value
+                br.readLine();
+                String currToRead = br.readLine();
+                Log.d(LOG_TAG, "currToRead: " + currToRead);
+
+                br.close();
+                isr.close();
+                fis.close();
+
+                // update the displayed currency
+                currency = currToRead;
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Exception: " + e);
+            }
+        } else {
+            currency = "PHP";
+        }
     }
 }
 
