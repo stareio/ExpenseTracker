@@ -86,7 +86,7 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:paddingHorizontal="20dp"
                                 android:paddingVertical="16dp">
@@ -98,16 +98,18 @@
                                     android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/sf_bold"
                                     android:text="Carlos Diaz"
-                                    android:textColor="@color/yellow"
+                                    android:textColor="@color/black"
                                     android:textSize="20sp" />
 
                                 <TextView
                                     android:id="@+id/tvDevDescr1"
+                                    style="@style/Widget.AppCompat.TextView"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="2dp"
                                     android:fontFamily="@font/sf_medium"
-                                    android:text="Hello world."
+                                    android:text="He is a co-programmer &amp; the lead programmer of the team."
+                                    android:textColor="@color/dark_mode_gray"
                                     android:textSize="14sp" />
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>
@@ -150,7 +152,7 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:paddingHorizontal="20dp"
                                 android:paddingVertical="16dp">
@@ -162,16 +164,18 @@
                                     android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/sf_bold"
                                     android:text="Sophie Reginio"
-                                    android:textColor="@color/yellow"
+                                    android:textColor="@color/black"
                                     android:textSize="20sp" />
 
                                 <TextView
                                     android:id="@+id/tvDevDescr2"
+                                    style="@style/Widget.AppCompat.TextView"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="2dp"
                                     android:fontFamily="@font/sf_medium"
-                                    android:text="Hello world."
+                                    android:text="She is a co-programmer of this application."
+                                    android:textColor="@color/dark_mode_dark_gray"
                                     android:textSize="14sp" />
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>
@@ -225,7 +229,7 @@
                                     android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/sf_bold"
                                     android:text="Michael Sarmiento"
-                                    android:textColor="@color/yellow"
+                                    android:textColor="@color/black"
                                     android:textSize="19sp" />
 
                                 <TextView
@@ -235,7 +239,8 @@
                                     android:layout_marginVertical="2dp"
                                     android:fontFamily="@font/sf_medium"
                                     android:paddingHorizontal="8dp"
-                                    android:text="Hello world."
+                                    android:text="He is a co-programmer of this application."
+                                    android:textColor="@color/dark_mode_dark_gray"
                                     android:textSize="14sp" />
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>

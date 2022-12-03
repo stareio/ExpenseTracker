@@ -48,17 +48,9 @@ public class EntryFormatter {
         return new int[]{year, month, day};
     }
 
-    // add currency symbol (ex: ₱99.99, $23)
-    public String formatCurrAmount(String amount, String currency) {
-        String newAmount = amount;
-
-        if (currency.equals("PHP")) {
-            newAmount = "₱" + newAmount;
-        } else if (currency.equals("USD")) {
-            newAmount = "$" + newAmount;
-        }
-
-        return newAmount;
+    // add currency symbol (ex: ₱99.99)
+    public String formatCurrAmount(String amount) {
+        return "₱" + amount;
     }
 }
 

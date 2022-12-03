@@ -19,14 +19,13 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
 
-    Button addBtn, checkBtn, homeBtn;
+    Button checkBtn, homeBtn;
     ListView lv;
 
     ArrayList<String> recordIds;
     RecordAdapter recordAdapter;
 
     String LOG_TAG = "Debugging";
-    String currency;
 
     Intent intent;
     SharedPreferences sp;
@@ -48,14 +47,11 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addBtn = (Button) findViewById(R.id.btnAdd);
         checkBtn = (Button) findViewById(R.id.btnCheck);
         homeBtn = (Button) findViewById(R.id.btnHome);
 
         sp = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         Boolean isDark = sp.getBoolean("night", false);
-
-        addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
 
         checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
 
@@ -87,11 +83,7 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
         }
         Log.d(LOG_TAG, "recordIds after for loop:" + recordIds);
 
-        // get currency set in app
-        getCurrency();
-
-        recordAdapter = new RecordAdapter(MainActivity.this, recordsList,
-                                            currency, this);
+        recordAdapter = new RecordAdapter(MainActivity.this, recordsList, this);
         lv.setAdapter(recordAdapter);
 
         db.close();
@@ -134,33 +126,6 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
     private void nextActivity(Class dest) {
         intent = new Intent(MainActivity.this, dest);
         startActivity(intent);
-    }
-
-    private void getCurrency() {
-        // check if settings file exists
-        if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
-            try {
-                FileInputStream fis = openFileInput("ExpenseTracker_Settings.txt");
-                InputStreamReader isr = new InputStreamReader(fis);
-                BufferedReader br = new BufferedReader(isr);
-
-                // only retrieve stored currency value
-                br.readLine();
-                String currToRead = br.readLine();
-                Log.d(LOG_TAG, "currToRead: " + currToRead);
-
-                br.close();
-                isr.close();
-                fis.close();
-
-                // update the displayed currency
-                currency = currToRead;
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception: " + e);
-            }
-        } else {
-            currency = "PHP";
-        }
     }
 }
 
