@@ -27,8 +27,8 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
     private TextView incomeText, expenseText;
-    String totalIncome = "10000";
-    String totalExpense = "500";
+    String totalIncome = "12000";
+    String totalExpense = "200";
 
     //Pie Chart Object
     PieChart pieChart;
