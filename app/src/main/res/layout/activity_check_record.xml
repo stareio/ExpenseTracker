@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/datePicker_btn2"
+            android:id="@+id/datePicker_btn"
             style="android:spinnerStyle"
             android:layout_width="match_parent"
             android:layout_height="61dp"

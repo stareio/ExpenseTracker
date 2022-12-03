@@ -19,8 +19,10 @@ public class HomeActivity extends AppCompatActivity {
     //Instantiations
     private TextView incomeText, expenseText;
     private ImageView settingBtn;
-    String totalIncome = "10000";
-    String totalExpense = "500";
+    private ListView lv;
+    String totalIncome = "0";
+    String totalExpense = "0";
+    String category = "";
 
     //Pie Chart Object
     PieChart pieChart;
@@ -34,6 +36,22 @@ public class HomeActivity extends AppCompatActivity {
         incomeText = findViewById(R.id.income_txt);
         expenseText = findViewById(R.id.expenses_txt);
         settingBtn = findViewById(R.id.setting_img);
+
+        //Item list
+        lv = (ListView) findViewById(R.id.item_list);
+        //DB handler
+        DBHandler db = new DBHandler(this);
+        //ArrayList
+        ArrayList<HashMap<String, String>> itemList = db.getRecords();
+        //ListAdapter Instantiation
+        ListAdapter adapter = new SimpleAdapter(
+                HomeActivity.this,
+                itemList,
+                R.layout.activity_home_record_template,
+                new String[]{"name","amount"},
+                new int[]{R.id.item_txt, R.id.price_txt}
+        );
+        lv.setAdapter(adapter);
 
         //Pie Chart Implementation
         pieChart = findViewById(R.id.piechart);
@@ -53,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
 
     //FOR PIE CHART
     private void setData() {
