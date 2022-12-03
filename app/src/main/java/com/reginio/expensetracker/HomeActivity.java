@@ -22,12 +22,13 @@ import java.util.*;
 
 public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
     //Instantiations
+
+    //Date Picker Object
+    private DatePickerDialog datePickerDialog;
+    private Button dateButton;
     private TextView incomeText, expenseText;
-    private ImageView settingBtn;
-    private ListView lv;
-    String totalIncome = "0";
-    String totalExpense = "0";
-    String category = "";
+    String totalIncome = "12000";
+    String totalExpense = "200";
 
     //Pie Chart Object
     PieChart pieChart;
@@ -51,24 +52,13 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         setContentView(R.layout.activity_home);
 
         //Find ID
+        dateButton = findViewById(R.id.datePicker_btn);
         incomeText = findViewById(R.id.income_txt);
         expenseText = findViewById(R.id.expenses_txt);
 
-        //Item list
-        lv = (ListView) findViewById(R.id.item_list);
-        //DB handler
-        DBHandler db = new DBHandler(this);
-        //ArrayList
-        ArrayList<HashMap<String, String>> itemList = db.getRecords();
-        //ListAdapter Instantiation
-        ListAdapter adapter = new SimpleAdapter(
-                HomeActivity.this,
-                itemList,
-                R.layout.activity_home_record_template,
-                new String[]{"name","amount"},
-                new int[]{R.id.item_txt, R.id.price_txt}
-        );
-        lv.setAdapter(adapter);
+        //Date Picker Button
+        initDatePicker();
+        dateButton.setText(getTodaysDate());
 
         //Pie Chart Implementation
         pieChart = findViewById(R.id.piechart);
@@ -126,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         //To animate pie chart
         pieChart.startAnimation();
     }
-    
+
     private void getData() {
 
         // for loop
@@ -164,6 +154,28 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
 
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month) {
+        switch (month){
+            case 1 : return "JAN";
+            case 2 : return "FEB";
+            case 3 : return "MAR";
+            case 4 : return "APR";
+            case 5 : return "MAY";
+            case 6 : return "JUN";
+            case 7 : return "JUL";
+            case 8 : return "AUG";
+            case 9 : return "SEP";
+            case 10 : return "OCT";
+            case 11 : return "NOV";
+            case 12 : return "DEC";
+            default : return "JAN";
+        }
+    }
+
+    public void openDatePicker(View view) {
+        datePickerDialog.show();
     }
 
     // FOR LIST OF RECORDS =========================================================================
