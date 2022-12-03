@@ -30,7 +30,8 @@ public class EntryValidator {
         return false;
     }
 
+    // returns true if name length is > 0 and <= 20
     public boolean checkName(String str) {
-        return str.length() <= 20;
+        return str.length() > 0 && str.length() <= 20;
     }
 }

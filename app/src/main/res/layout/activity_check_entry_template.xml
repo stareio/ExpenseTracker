@@ -22,7 +22,8 @@
             android:layout_width="414dp"
             android:layout_height="59dp"
             android:layout_marginVertical="10dp"
-            tools:layout_editor_absoluteX="-3dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView4"
@@ -79,14 +80,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
+                android:layout_marginStart="172dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="PHP 100000.00"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/money_green"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="parent" />
 
