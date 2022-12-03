@@ -46,9 +46,10 @@
         <item name="colorControlActivated">#34B3F1</item>
     </style>
 
-    <!-- DatePicker -->
-    <style name="DATEPICKER" parent="android:Theme.Material.Light.Dialog">
-<!--        <item name="android:colorAccent">@color/yellow</item>-->
+    <!-- Records List -->
+    <style name="RECORDS_LIST">
+        <item name="android:background" >@color/white</item>
+        <item name="android:textColor">@color/gray</item>
     </style>
 
     <!-- Input Field BackgroundS for Add/Edit Record and Settings Pages -->

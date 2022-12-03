@@ -1,8 +1,9 @@
 package com.reginio.expensetracker;
 
 import android.content.*;
-import android.database.Cursor;
+import android.database.*;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -11,16 +12,33 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
 
-    Button settingsBtn, addBtn, editBtn, checkBtn, homeBtn;
+    Button settingsBtn, addBtn, checkBtn, homeBtn;
     ListView lv;
+    Spinner recordSpnr;
 
-    ListAdapter adapter;
+    ArrayList<String> recordIds;
+    RecordAdapter recordAdapter;
+
+    String LOG_TAG = "Debugging";
 
     Intent intent;
     SharedPreferences sp;
+
+    // retrieve modify value from adapter
+    @Override
+    public void onItemSelectedListener(String modify, int id) {
+        Log.d(LOG_TAG, "MainActivity ==========================");
+        Log.d(LOG_TAG, "modify in MainActivity: " + modify);
+        Log.d(LOG_TAG, "adapter position: " + id);
+
+        if (modify != null) {
+            modifyRecord(modify, id);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         settingsBtn = (Button) findViewById(R.id.btnSettings);
         addBtn = (Button) findViewById(R.id.btnAdd);
-        editBtn = (Button) findViewById(R.id.btnEdit);
         checkBtn = (Button) findViewById(R.id.btnCheck);
         homeBtn = (Button) findViewById(R.id.btnHome);
 
@@ -40,17 +57,30 @@ public class MainActivity extends AppCompatActivity {
 
         addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
 
-        editBtn.setOnClickListener(view -> nextActivity(EditRecordActivity.class));
-
         checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
         
         homeBtn.setOnClickListener(view -> nextActivity(HomeActivity.class));
 
         // == DB testing ===========================================================================
         lv = findViewById(R.id.test_list);
+        recordSpnr = findViewById(R.id.spnrRecord);
+
         getList();  // retrieve list of records
+//        populateRecordSpinner();    // populate spinner for edit & delete
 
         // NTS: add formatting in some values (ex: for expenses, need negative sign & P/$)
+
+        // get selected item in record spinner
+//        recordSpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+//                                       int position, long id) {
+//                modify = recordSpnr.getSelectedItem().toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) { }
+//        });
 
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -59,28 +89,60 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // get list of records
+    private void getList() {
+        DBHandler db = new DBHandler(this);
+        recordIds = new ArrayList<>();
+        ArrayList<HashMap<String,String>> recordsList = db.getRecords();
+
+        int count = 0;
+        for (Map<String,String> map : recordsList) {
+            recordIds.add(map.get("id"));
+            Log.d(LOG_TAG, "Stored id " + map.get("id") + " at index " + count);
+            count++;
+        }
+
+        Log.d(LOG_TAG, "recordIds after for loop:" + recordIds);
+
+        recordAdapter = new RecordAdapter(MainActivity.this, recordsList, this);
+        lv.setAdapter(recordAdapter);
+
+        db.close();
+    }
+
+    // edit/delete the record
+    private void modifyRecord(String modify, int id) {
+        String recordId = recordIds.get(id);
+        Log.d(LOG_TAG, "recordId: " + recordId);
+
+        if (modify.equals("Edit")) {
+            Log.d(LOG_TAG, "Record to be edited");
+//            recordIds.clear();
+
+//            Intent i = new Intent(MainActivity.this, EditRecordActivity.class);
+//            i.putExtra("id", id);
+//            startActivity(i);
+        } else if (modify.equals("Delete")) {
+            Log.d(LOG_TAG, "Record deleted");
+//            recordIds.clear();
+            // delete via DB
+
+//            getList();
+//            ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+        }
+    }
+
+    // update the displayed list of records
     @Override
     protected void onResume() {
         super.onResume();
-
         getList();
-        ((BaseAdapter) adapter).notifyDataSetChanged();
+        ((BaseAdapter) recordAdapter).notifyDataSetChanged();
     }
 
     private void nextActivity(Class dest) {
         intent = new Intent(MainActivity.this, dest);
         startActivity(intent);
-    }
-
-    private void getList() {
-        DBHandler db = new DBHandler(this);
-        ArrayList<HashMap<String,String>> recordsList = db.getRecords();
-
-        adapter = new SimpleAdapter(MainActivity.this, recordsList,
-                R.layout.list_record, new String[]{"category","name","amount"},
-                new int[]{R.id.tvRecordCategory, R.id.tvRecordName, R.id.tvRecordAmount}
-        );
-        lv.setAdapter(adapter);
     }
 }
 
