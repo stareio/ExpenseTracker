@@ -22,7 +22,7 @@ import java.util.*;
 
 public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
     //Instantiations
-
+  
     //Date Picker Object
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
@@ -37,11 +37,15 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //Settings Button
     ImageButton settingsBtn;
 
+
+    //Date Picker Button
+    Button datePickerBtn;
+
     //Add Record Button
     ImageButton addRecordBtn;
 
     //List of Records
-    ListView lv;
+    private ListView lv;
     ArrayList<String> recordIds;
     RecordAdapter recordAdapter;
 
@@ -55,10 +59,10 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        //Formatter
         ef = new EntryFormatter();
 
-        //Find ID
+        //Set Text from value
         dateButton = findViewById(R.id.datePicker_btn);
         incomeText = findViewById(R.id.income_txt);
         expenseText = findViewById(R.id.expenses_txt);
@@ -71,8 +75,15 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         //Settings Page
         settingsBtn = findViewById(R.id.ibSettings);
         settingsBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(intent);
+            Intent toSettings = new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(toSettings);
+        });
+
+        datePickerBtn = findViewById(R.id.datePicker_btn);
+        datePickerBtn.setText(getTodaysDate() + " ▼");
+        datePickerBtn.setOnClickListener(view -> {
+            Intent toCheckRec = new Intent(HomeActivity.this, CheckRecordActivity.class);
+            startActivity(toCheckRec);
         });
 
         //Add Record Page
@@ -98,11 +109,13 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         //Greeting
         // check for saved username
         readSettings();
+      
         // greet user
         Toast.makeText(getApplicationContext(),
                 "Hello, " + nameToGreet,
                 Toast.LENGTH_LONG).show();
-
+        
+        //Dark/Light Mode
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -144,26 +157,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
         return makeDateString(day,month,year);
-    }
-
-    private void initDatePicker() {
-            DatePickerDialog.OnDateSetListener dateSetListener = new OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    month = month + 1;
-                    String date = makeDateString(day, month, year);
-                    dateButton.setText(date);
-                }
-            };
-
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        int style = AlertDialog.THEME_HOLO_LIGHT;
-        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-
     }
 
     private String makeDateString(int day, int month, int year) {

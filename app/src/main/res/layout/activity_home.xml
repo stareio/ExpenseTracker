@@ -132,7 +132,6 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -169,7 +168,6 @@
                 android:background="@null"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/ic_add_record" />
-
         </LinearLayout>
 
         <ListView
