@@ -2,6 +2,8 @@ package com.reginio.expensetracker;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
@@ -12,16 +14,19 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
 
     private OnEditRecordSpnrSelect oe;
     private ArrayList<HashMap<String,String>> recordsList;
+    private String currency;
     private Context context;
     private String modify;
     private LayoutInflater layoutInflater;
+    private EntryFormatter ef;
 
     String LOG_TAG = "Debugging";
 
     public RecordAdapter(Context context, ArrayList<HashMap<String,String>> data,
-                         OnEditRecordSpnrSelect listener) {
+                         String currency, OnEditRecordSpnrSelect listener) {
         this.context = context;
         recordsList = data;
+        this.currency = currency;
         this.oe = listener;
 
         layoutInflater =
@@ -46,6 +51,7 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
+        ef = new EntryFormatter();
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -61,10 +67,32 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        // set values in each widget
+        String category = (recordsList.get(position)).get("category");
+
         // NTS: set image based on category
-        viewHolder.recordCategoryTv.setText((recordsList.get(position)).get("category"));
+        // switch case
+
+        if (category.equals("")) {
+            viewHolder.recordCategoryTv.setTypeface(null, Typeface.ITALIC);
+            viewHolder.recordCategoryTv.setText("N/A");
+        } else {
+            viewHolder.recordCategoryTv.setText(category);
+        }
+
+
         viewHolder.recordNameTv.setText((recordsList.get(position)).get("name"));
-        viewHolder.recordAmountTv.setText((recordsList.get(position)).get("amount"));
+
+        String type = (recordsList.get(position)).get("type");
+        String amount = (recordsList.get(position)).get("amount");
+        amount = ef.formatCurrAmount(amount, currency);
+        if (type.equals("Expense")) {
+            viewHolder.recordAmountTv.setText("-" + amount);    // add negative sign
+            viewHolder.recordAmountTv.setTextColor(Color.parseColor("#F8777D"));
+        } else if (type.equals("Income")) {
+            viewHolder.recordAmountTv.setText(amount);  // no negative sign
+            viewHolder.recordAmountTv.setTextColor(Color.parseColor("#65BCBF"));
+        }
 
         // populate the spinner
         populateRecordSpinner(viewHolder.recordSpnr);
@@ -106,7 +134,7 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
 
     private void populateRecordSpinner(Spinner spnr) {
         // create a list of items for the spinner
-        String[] items = new String[]{"" ,"Edit", "Delete"};
+        String[] items = new String[]{"", "Edit", "Delete"};
 
         // create an adapter to describe how the items are displayed
         ArrayAdapter<String> spnrAdapter = new ArrayAdapter<>(
