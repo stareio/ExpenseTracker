@@ -96,8 +96,6 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
     @Override
     public void onItemSelectedListener(String modify, int id) {}
 
-    public void setEditRecordSpnr
-
     private static class ViewHolder {
         public ImageView recordIconIv;
         public TextView recordCategoryTv, recordNameTv, recordAmountTv;
