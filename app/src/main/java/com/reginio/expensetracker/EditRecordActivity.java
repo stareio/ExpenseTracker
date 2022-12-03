@@ -162,7 +162,8 @@ public class EditRecordActivity extends AppCompatActivity {
         editRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // NTS: retrieve record id first
+                Intent intent = getIntent();
+                int recordId = intent.getIntExtra("id",0);
 
                 String name = editNameEt.getText().toString();
                 // reformat amount to only have 2 decimal places or none
