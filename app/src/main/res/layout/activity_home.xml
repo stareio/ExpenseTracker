@@ -113,18 +113,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/datePicker_btn"
-                style="android:spinnerStyle"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_gravity="center_horizontal|end"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="#C18C14"
-                android:onClick="openDatePicker"
-                android:text="JAN 01 2022 ▼"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
         </LinearLayout>
 
         <LinearLayout
