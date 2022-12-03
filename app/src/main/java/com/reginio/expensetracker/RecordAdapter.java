@@ -14,6 +14,7 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
     private ArrayList<HashMap<String,String>> recordsList;
     private Context context;
     private String modify;
+    private LayoutInflater layoutInflater;
 
     String LOG_TAG = "Debugging";
 
@@ -22,6 +23,9 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
         this.context = context;
         recordsList = data;
         this.oe = listener;
+
+        layoutInflater =
+                (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -45,8 +49,6 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            LayoutInflater layoutInflater =
-                    (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_record, null);
 
             viewHolder.recordIconIv = (ImageView) convertView.findViewById(R.id.ivRecordIcon);
