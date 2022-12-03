@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
         addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
 
         checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
-        
+
         homeBtn.setOnClickListener(view -> nextActivity(HomeActivity.class));
 
         // == DB testing ===========================================================================
