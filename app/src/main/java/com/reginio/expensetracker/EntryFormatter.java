@@ -7,7 +7,7 @@ public class EntryFormatter {
     String LOG_TAG = "Debugging";
 
     // return the amount as either a whole number or not
-    public String formatAmount(String amount) {
+    public String formatAmountValue(String amount) {
         // check if not null
         if (!amount.equals("")) {
             // show only 2 decimal places (ex: 20.91111 -> 20.91)
@@ -48,7 +48,18 @@ public class EntryFormatter {
         return new int[]{year, month, day};
     }
 
-    // NTS: amount formatting for check records page or home page (ex: -₱99.99)
+    // add currency symbol (ex: ₱99.99, $23)
+    public String formatCurrAmount(String amount, String currency) {
+        String newAmount = amount;
+
+        if (currency.equals("PHP")) {
+            newAmount = "₱" + newAmount;
+        } else if (currency.equals("USD")) {
+            newAmount = "$" + newAmount;
+        }
+
+        return newAmount;
+    }
 }
 
 /*

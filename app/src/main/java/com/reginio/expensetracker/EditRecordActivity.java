@@ -162,12 +162,10 @@ public class EditRecordActivity extends AppCompatActivity {
         editRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = getIntent();
-                int recordId = intent.getIntExtra("id",0);
 
                 String name = editNameEt.getText().toString();
                 // reformat amount to only have 2 decimal places or none
-                String amount = ef.formatAmount(editAmtEt.getText().toString());
+                String amount = ef.formatAmountValue(editAmtEt.getText().toString());
                 String date = editYear + "-" + editMonth + "-" + editDay;
 
                 Log.d(LOG_TAG, "=== Values NOT stored in database yet ===========");
@@ -250,8 +248,11 @@ public class EditRecordActivity extends AppCompatActivity {
 
     // user-defined methods =========================================================
     private void getRecord() {
-        // NTS: retrieve recordId from check records page or home page
-        recordId = 1;   // for debugging
+        // retrieve record id from previous activity
+        Intent intent = getIntent();
+        recordId = Integer.parseInt(intent.getStringExtra("id"));
+        Log.d(LOG_TAG, "recordId: " + recordId);
+
         String type = "", name = "", amount = "", date = "";
 
         // retrieve record from database
@@ -275,6 +276,7 @@ public class EditRecordActivity extends AppCompatActivity {
 
         // set the retrieved values on each input widget
         entryType = type;
+
         editExpIncSpnr.setSelection(getIndex(editExpIncSpnr, entryType), true);
         editExpIncTv.setText(entryType);
 
@@ -301,7 +303,6 @@ public class EditRecordActivity extends AppCompatActivity {
         }
 
         getDateRecorded(ef.splitDate(date));
-        // datepicker
 
         editAmtEt.setText(amount);
     }

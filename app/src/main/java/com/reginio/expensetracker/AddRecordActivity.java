@@ -165,7 +165,7 @@ public class AddRecordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = addNameEt.getText().toString();
                 // reformat amount to only have 2 decimal places or none
-                String amount = ef.formatAmount(addAmtEt.getText().toString());
+                String amount = ef.formatAmountValue(addAmtEt.getText().toString());
                 String date = addYear + "-" + addMonth + "-" + addDay;
 
                 Log.d(LOG_TAG, "=== Values NOT stored in database yet ===========");
