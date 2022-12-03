@@ -22,11 +22,14 @@ import java.util.*;
 
 public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
     //Instantiations
-    private TextView incomeText, expenseText;
-    private ImageView settingBtn;
-    String totalIncome = "0";
-    String totalExpense = "0";
-    String category = "";
+  
+    //Date Picker Object
+    private DatePickerDialog datePickerDialog;
+    private Button dateButton;
+    private TextView incomeText, expenseText, balanceText;
+    Double totalIncome;
+    Double totalExpense;
+    Double totalBalance;
 
     //Pie Chart Object
     PieChart pieChart;
@@ -34,16 +37,21 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //Settings Button
     ImageButton settingsBtn;
 
+
     //Date Picker Button
     Button datePickerBtn;
+
+    //Add Record Button
+    ImageButton addRecordBtn;
 
     //List of Records
     private ListView lv;
     ArrayList<String> recordIds;
     RecordAdapter recordAdapter;
-    String currency;
 
     //Others
+    String nameToGreet;
+    EntryFormatter ef;
     String LOG_TAG = "Debugging";
     SharedPreferences sp;
 
@@ -51,35 +59,18 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        //Find ID
-        //Item list
-        lv = (ListView) findViewById(R.id.lvHomeRecords);
-        //DB handler
-        DBHandler db = new DBHandler(this);
-        //ArrayList
-        ArrayList<HashMap<String, String>> itemList = db.getRecords();
-        //ListAdapter Instantiation
-        ListAdapter adapter = new SimpleAdapter(
-                HomeActivity.this,
-                itemList,
-                R.layout.activity_home_record_template,
-                new String[]{"name","amount"},
-                new int[]{R.id.item_txt, R.id.price_txt}
-        );
-        lv.setAdapter(adapter);
-
-        //Pie Chart Implementation
-        pieChart = findViewById(R.id.piechart);
-
-        //add data to piechart
-        setData();
+        //Formatter
+        ef = new EntryFormatter();
 
         //Set Text from value
+        dateButton = findViewById(R.id.datePicker_btn);
         incomeText = findViewById(R.id.income_txt);
         expenseText = findViewById(R.id.expenses_txt);
-        incomeText.setText(totalIncome);
-        expenseText.setText(totalExpense);
+        balanceText = findViewById(R.id.balance_txt);
+
+        //Date Picker Button
+        initDatePicker();
+        dateButton.setText(getTodaysDate());
 
         //Settings Page
         settingsBtn = findViewById(R.id.ibSettings);
@@ -95,17 +86,36 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
             startActivity(toCheckRec);
         });
 
+        //Add Record Page
+        addRecordBtn = findViewById(R.id.ibAddRecord);
+        addRecordBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(HomeActivity.this, AddRecordActivity.class);
+            startActivity(intent);
+        });
 
         //List of Records
         lv = findViewById(R.id.lvHomeRecords);
-        getList();  // retrieve list of records
 
-        //
+        // retrieve list of records
+        getList();
+
+        //Pie Chart Implementation
+        pieChart = findViewById(R.id.piechart);
 
         //Dark/Light Mode
         sp = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         Boolean isDark = sp.getBoolean("night", false);
 
+        //Greeting
+        // check for saved username
+        readSettings();
+      
+        // greet user
+        Toast.makeText(getApplicationContext(),
+                "Hello, " + nameToGreet,
+                Toast.LENGTH_LONG).show();
+        
+        //Dark/Light Mode
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -116,33 +126,30 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //FOR PIE CHART ================================================================================
     private void setData() {
 
+        pieChart.clearChart();
+
         pieChart.addPieSlice(
                 new PieModel(
                         "Income",
                         //Integer.parseInt(incomeText.getText().toString()),
-                        Integer.parseInt(totalIncome),
-                        Color.parseColor("#856214")
+                        totalIncome.floatValue(),
+                        Color.parseColor("#65BCBF")
                 )
         );
         pieChart.addPieSlice(
                 new PieModel(
                         "Income",
                         //Integer.parseInt(expenseText.getText().toString()),
-                        Integer.parseInt(totalExpense),
-                        Color.parseColor("#213933")
+                        totalExpense.floatValue(),
+                        Color.parseColor("#F8777D")
                 )
         );
 
         //To animate pie chart
         pieChart.startAnimation();
     }
-    
-    private void getData() {
 
-        // for loop
-    }
-
-//    //FOR DATE PICKER ==============================================================================
+    //FOR DATE PICKER ==============================================================================
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -157,34 +164,25 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     }
 
     private String getMonthFormat(int month) {
-        switch (month) {
-            case 1:
-                return "JAN";
-            case 2:
-                return "FEB";
-            case 3:
-                return "MAR";
-            case 4:
-                return "APR";
-            case 5:
-                return "MAY";
-            case 6:
-                return "JUN";
-            case 7:
-                return "JUL";
-            case 8:
-                return "AUG";
-            case 9:
-                return "SEP";
-            case 10:
-                return "OCT";
-            case 11:
-                return "NOV";
-            case 12:
-                return "DEC";
-            default:
-                return "JAN";
+        switch (month){
+            case 1 : return "JAN";
+            case 2 : return "FEB";
+            case 3 : return "MAR";
+            case 4 : return "APR";
+            case 5 : return "MAY";
+            case 6 : return "JUN";
+            case 7 : return "JUL";
+            case 8 : return "AUG";
+            case 9 : return "SEP";
+            case 10 : return "OCT";
+            case 11 : return "NOV";
+            case 12 : return "DEC";
+            default : return "JAN";
         }
+    }
+
+    public void openDatePicker(View view) {
+        datePickerDialog.show();
     }
 
     // FOR LIST OF RECORDS =========================================================================
@@ -206,19 +204,30 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         recordIds = new ArrayList<>();
         ArrayList<HashMap<String,String>> recordsList = db.getRecords();
 
+        //Initalize totalIncome and totalExpense
+        totalIncome = 0.00;
+        totalExpense = 0.00;
+
         int count = 0;
         for (Map<String,String> map : recordsList) {
             recordIds.add(map.get("id"));
             Log.d(LOG_TAG, "Stored id " + map.get("id") + " at index " + count);
+
+            String type = map.get("type");
+            Double amount = Double.parseDouble(map.get("amount"));
+            if (type.equals("Expense")) {
+                totalExpense += amount;
+                Log.d(LOG_TAG, "added expense: " + amount);
+            } else if (type.equals("Income")) {
+                totalIncome += amount;
+                Log.d(LOG_TAG, "added income: " + amount);
+            }
+            totalBalance = totalIncome - totalExpense;
             count++;
         }
-        Log.d(LOG_TAG, "recordIds after for loop:" + recordIds);
+        Log.d(LOG_TAG, "recordIds after for loop: " + recordIds);
 
-        // get currency set in app
-        getCurrency();
-
-        recordAdapter = new RecordAdapter(HomeActivity.this, recordsList,
-                currency, this);
+        recordAdapter = new RecordAdapter(HomeActivity.this, recordsList, this);
         lv.setAdapter(recordAdapter);
 
         db.close();
@@ -246,6 +255,14 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
             recordIds.clear();
             getList();
             ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+
+            //add data to piechart
+            setData();
+
+            //Set Text from value
+            incomeText.setText(ef.formatCurrAmount(ef.formatAmountValue(String.valueOf(totalIncome))));
+            expenseText.setText(ef.formatCurrAmount(ef.formatAmountValue(String.valueOf(totalExpense))));
+            balanceText.setText(ef.formatCurrAmount(ef.formatAmountValue(String.valueOf(totalBalance))));
         }
     }
 
@@ -256,33 +273,49 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         recordIds.clear();
         getList();
         ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+
+        //add data to piechart
+        setData();
+
+        //Set Text from value
+        incomeText.setText(ef.formatCurrAmount(ef.formatAmountValue(String.valueOf(totalIncome))));
+        expenseText.setText(ef.formatCurrAmount(ef.formatAmountValue(String.valueOf(totalExpense))));
+        balanceText.setText(ef.formatCurrAmount(ef.formatAmountValue(String.valueOf(totalBalance))));
     }
 
-    // get selected currency of user
-    private void getCurrency() {
-        // check if settings file exists
+    // FOR GREETING NAME ===========================================================================
+    public void readSettings() {
+        // check if file exists
         if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
+            Log.d(LOG_TAG, "Settings file exists");
+
             try {
                 FileInputStream fis = openFileInput("ExpenseTracker_Settings.txt");
                 InputStreamReader isr = new InputStreamReader(fis);
                 BufferedReader br = new BufferedReader(isr);
 
-                // only retrieve stored currency value
-                br.readLine();
-                String currToRead = br.readLine();
-                Log.d(LOG_TAG, "currToRead: " + currToRead);
+                // get name
+                String name = br.readLine();
+                if (name.equals("")) {
+                    nameToGreet = "user";
+                } else {
+                    nameToGreet = name;
+                }
+
+
+                Log.d(LOG_TAG, "nameToRead: " + nameToGreet);
 
                 br.close();
                 isr.close();
                 fis.close();
-
-                // update the displayed currency
-                currency = currToRead;
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Exception: " + e);
             }
         } else {
-            currency = "PHP";
+            nameToGreet = "user";
+            Log.d(LOG_TAG, "Settings file does NOT exist");
         }
+
+        Log.d(LOG_TAG, "nameToGreet: " + nameToGreet);
     }
 }

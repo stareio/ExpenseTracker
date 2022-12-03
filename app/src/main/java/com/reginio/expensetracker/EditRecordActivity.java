@@ -65,9 +65,6 @@ public class EditRecordActivity extends AppCompatActivity {
         // populate the dropdown list for expenses/income
         getExIncSpinner();
 
-        // set currency
-        getCurrency();
-
         // get record and display its values on each input widget like EditText, Spinner, etc.
         getRecord();
 
@@ -368,33 +365,6 @@ public class EditRecordActivity extends AppCompatActivity {
 
         // set default date to current date
         editDateTv.setText(ef.formatDate(editYear, editMonth, editDay));
-    }
-
-    private void getCurrency() {
-        // check if settings file exists
-        if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
-            try {
-                FileInputStream fis = openFileInput("ExpenseTracker_Settings.txt");
-                InputStreamReader isr = new InputStreamReader(fis);
-                BufferedReader br = new BufferedReader(isr);
-
-                // only retrieve stored currency value
-                br.readLine();
-                String currToRead = br.readLine();
-                Log.d(LOG_TAG, "currToRead: " + currToRead);
-
-                br.close();
-                isr.close();
-                fis.close();
-
-                // update the displayed currency
-                editAmtCurrTv.setText(currToRead);
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception: " + e);
-            }
-        } else {
-            editAmtCurrTv.setText("PHP");
-        }
     }
 
     private int getIndex(Spinner spinner, String myString){

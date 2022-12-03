@@ -25,6 +25,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewGraph"
+            style="@style/PIE_CHART_CARD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -71,19 +72,20 @@
                         android:alpha="0.8"
                         android:fontFamily="@font/sf_bold"
                         android:text="Total Income"
-                        android:textColor="#856214"
-                        android:textSize="16sp" />
+                        android:textColor="@color/money_green"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/income_txt"
+                        style="@style/TEXT_NORMAL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
                         android:alpha="1"
                         android:fontFamily="@font/sf_bold"
                         android:hint="Income Sample"
                         android:textAlignment="textStart"
-                        android:textColor="#856214"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/expenses_lbl"
@@ -92,43 +94,87 @@
                         android:alpha="0.8"
                         android:fontFamily="@font/sf_bold"
                         android:text="Total Expenses"
-                        android:textColor="#213933"
-                        android:textSize="16sp" />
+                        android:textColor="@color/money_red"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/expenses_txt"
+                        style="@style/TEXT_NORMAL"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
                         android:alpha="1"
                         android:fontFamily="@font/sf_bold"
                         android:hint="Expense Sample"
                         android:textAlignment="textStart"
-                        android:textColor="#213933"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/balance_lb"
+                        style="@style/TEXT_TOTAL_AMT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.8"
+                        android:fontFamily="@font/sf_bold"
+                        android:text="Total Balance"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/balance_txt"
+                        style="@style/TEXT_NORMAL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:alpha="1"
+                        android:fontFamily="@font/sf_bold"
+                        android:hint="Expense Sample"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/datePicker_btn"
-            style="android:spinnerStyle"
-            android:layout_width="200dp"
-            android:layout_height="61dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="9dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="#C18C14"
-            android:text="JAN 01 2022"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:layout_marginVertical="4dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/datePicker_btn"
+                style="android:spinnerStyle"
+                android:layout_width="200dp"
+                android:layout_height="61dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="#C18C14"
+                android:onClick="openDatePicker"
+                android:text="JAN 01 2022"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ibAddRecord"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="28dp"
+                android:background="@null"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_add_record" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/lvHomeRecords"
             style="@style/RECORDS_LIST"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="430dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.6" />
     </LinearLayout>

@@ -17,7 +17,6 @@ import java.util.*;
 public class SettingsActivity extends AppCompatActivity {
 
     EditText nameEt;
-    Spinner currencySpnr;
     Switch darkModeSw;
     ImageButton devBtn;
     Button saveBtn;
@@ -27,7 +26,6 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
 
-    String currency = "";     // store currency value
     Boolean isDark = false;     // store darkModeSw value
 
     @Override
@@ -36,7 +34,6 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         nameEt = findViewById(R.id.etGreetingName);
-        currencySpnr = findViewById(R.id.spnrCurrency);
         darkModeSw = findViewById(R.id.swDarkMode);
         devBtn = findViewById(R.id.btnDevelopers);
         saveBtn = findViewById(R.id.btnSaveSettings);
@@ -50,22 +47,8 @@ public class SettingsActivity extends AppCompatActivity {
             darkModeSw.setChecked(true);
         }
 
-        // check for saved username and currency
+        // check for saved username
         readSettings();
-
-        // get selected item in currency spinner
-        currencySpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
-                                       int position, long id) {
-                currency = currencySpnr.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                currency = "PHP";
-            }
-        });
 
         // get value of dark mode switch
         darkModeSw.setOnCheckedChangeListener((buttonView, isChecked) -> isDark = isChecked);
@@ -84,10 +67,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void saveSettings() {
         String nameToSave = nameEt.getText().toString();
-        String currToSave = currency;
 
         Log.d(LOG_TAG, "nameToSave: " + nameToSave);
-        Log.d(LOG_TAG, "currToSave: " + currToSave);
         Log.d(LOG_TAG, "isDark: " + isDark);
 
         try {
@@ -97,9 +78,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             ArrayList<String> lines = new ArrayList<>();
             lines.add(nameToSave);
-            lines.add(currToSave);
 
-            // save username & currency
+            // save username
             for (int i=0; i<lines.size(); i++) {
                 bw.write(lines.get(i));
 
@@ -114,17 +94,14 @@ public class SettingsActivity extends AppCompatActivity {
             // save mode as dark/light
             setMode();
 
-            Toast.makeText(getApplicationContext(), "Current Settings Saved!",
-                    Toast.LENGTH_SHORT).show();
+            // go back to previous page
+            onBackPressed();
         } catch (Exception e) {
             Log.e(LOG_TAG, "Exception: " + e);
         }
     }
 
     public void readSettings() {
-        // populate the dropdown list for currency
-        populateCurrencySpinner();
-
         // check if file exists
         if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
             Log.d(LOG_TAG, "Settings file exists");
@@ -134,44 +111,23 @@ public class SettingsActivity extends AppCompatActivity {
                 InputStreamReader isr = new InputStreamReader(fis);
                 BufferedReader br = new BufferedReader(isr);
 
-                // store each line from the file in its respective variable
+                // get name
                 String nameToRead = br.readLine();
-                String currToRead = br.readLine();
 
                 Log.d(LOG_TAG, "nameToRead: " + nameToRead);
-                Log.d(LOG_TAG, "currToRead: " + currToRead);
 
                 br.close();
                 isr.close();
                 fis.close();
 
-                // update the displayed username and currency
+                // update the displayed username
                 nameEt.setText(nameToRead);
-                currencySpnr.setSelection(getIndex(currencySpnr, currToRead), true);
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Exception: " + e);
             }
         } else {
             Log.d(LOG_TAG, "Settings file does NOT exist");
         }
-    }
-
-    private void populateCurrencySpinner() {
-        // get the spinner from the xml
-        currencySpnr = findViewById(R.id.spnrCurrency);
-
-        // create a list of items for the spinner
-        String[] items = new String[]{"PHP", "USD"};
-
-        // create an adapter to describe how the items are displayed
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                R.layout.spinner,
-                items
-        );
-
-        // set the spinner adapter to the previously created one
-        currencySpnr.setAdapter(adapter);
     }
 
     private int getIndex(Spinner spinner, String myString){

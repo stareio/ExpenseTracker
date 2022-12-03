@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/yellow</item>
     </style>
 
     <!-- Light Mode -->
@@ -30,25 +31,30 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <!-- Text for Total Amounts in Home Page -->
+    <style name="TEXT_TOTAL_AMT">
+        <item name="android:textColor">#C18C14</item>
+    </style>
+
     <!-- Text for TextView, etc. -->
     <style name="TEXT_NORMAL">
         <item name="android:textColor">@color/gray</item>
     </style>
 
-    <!-- Text for Developers Description -->
-    <style name="TEXT_DEV">
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <!-- Text for Developers Description -->
+    <!-- Switch -->
     <style name="SWITCH">
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">#34B3F1</item>
     </style>
 
+    <!-- Pie Chart Card -->
+    <style name="PIE_CHART_CARD">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
     <!-- Records List -->
     <style name="RECORDS_LIST">
-        <item name="android:background" >@color/white</item>
+        <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/gray</item>
     </style>
 

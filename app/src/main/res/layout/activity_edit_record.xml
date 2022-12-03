@@ -254,9 +254,9 @@
 
                 <EditText
                     android:id="@+id/etEditAmt"
+                    style="@style/INPUT_FIELD_UPPER_AND_LOWER"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/INPUT_FIELD_UPPER_AND_LOWER"
                     android:ems="10"
                     android:fontFamily="@font/sf_medium"
                     android:inputType="numberDecimal"
@@ -272,6 +272,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="12dp"
                     android:fontFamily="@font/sf_medium"
+                    android:text="PHP"
                     android:textAllCaps="false"
                     android:textColor="@color/yellow"
                     android:textSize="16sp" />

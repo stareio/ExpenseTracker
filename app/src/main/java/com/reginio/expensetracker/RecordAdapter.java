@@ -14,7 +14,6 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
 
     private OnEditRecordSpnrSelect oe;
     private ArrayList<HashMap<String,String>> recordsList;
-    private String currency;
     private Context context;
     private String modify;
     private LayoutInflater layoutInflater;
@@ -23,10 +22,9 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
     String LOG_TAG = "Debugging";
 
     public RecordAdapter(Context context, ArrayList<HashMap<String,String>> data,
-                         String currency, OnEditRecordSpnrSelect listener) {
+                          OnEditRecordSpnrSelect listener) {
         this.context = context;
         recordsList = data;
-        this.currency = currency;
         this.oe = listener;
 
         layoutInflater =
@@ -116,7 +114,7 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
 
         String type = (recordsList.get(position)).get("type");
         String amount = (recordsList.get(position)).get("amount");
-        amount = ef.formatCurrAmount(amount, currency);
+        amount = ef.formatCurrAmount(amount);
         if (type.equals("Expense")) {
             viewHolder.recordAmountTv.setText("-" + amount);    // add negative sign
             viewHolder.recordAmountTv.setTextColor(Color.parseColor("#F8777D"));
