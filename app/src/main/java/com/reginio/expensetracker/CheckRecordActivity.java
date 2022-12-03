@@ -93,7 +93,7 @@ public class CheckRecordActivity extends AppCompatActivity {
 
 
     private String makeInputDate(int day, int month, int year) {
-        String output =  year + "-" + month + "-" + day;
+        String output =  year + "-" + day + "-" + month;
         Log.d(LOG_TAG, "Input Date: " + output);
         return output;
     }
