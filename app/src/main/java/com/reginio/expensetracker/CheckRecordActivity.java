@@ -17,13 +17,13 @@ public class CheckRecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_record);
 
-        addBtn = (ImageButton) findViewById(R.id.btnAdd);
+//        addBtn = (ImageButton) findViewById(R.id.btnAdd);
 
-        addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
+//        addBtn.setOnClickListener(view -> nextActivity(AddRecordActivity.class));
     }
 
-    private void nextActivity(Class dest) {
-        intent = new Intent(CheckRecordActivity.this, dest);
-        startActivity(intent);
-    }
+//    private void nextActivity(Class dest) {
+//        intent = new Intent(CheckRecordActivity.this, dest);
+//        startActivity(intent);
+//    }
 }
