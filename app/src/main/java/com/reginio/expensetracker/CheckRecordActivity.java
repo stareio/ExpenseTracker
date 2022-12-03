@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class CheckRecordActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "";
+    private static final String LOG_TAG = "Debugging";
     ImageButton addBtn;
     ListView lv;
 

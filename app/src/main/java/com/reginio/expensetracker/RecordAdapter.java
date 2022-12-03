@@ -106,7 +106,7 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
 
     private void populateRecordSpinner(Spinner spnr) {
         // create a list of items for the spinner
-        String[] items = new String[]{"Edit", "Delete"};
+        String[] items = new String[]{"" ,"Edit", "Delete"};
 
         // create an adapter to describe how the items are displayed
         ArrayAdapter<String> spnrAdapter = new ArrayAdapter<>(
@@ -129,6 +129,5 @@ Customized Adapter (4): https://www.geeksforgeeks.org/custom-arrayadapter-with-l
 Hide spinner selection text: https://stackoverflow.com/questions/4931186/hide-text-of-android-spinner
 Send string from custom Adapter to Activity (1): https://stackoverflow.com/questions/48048977/send-string-from-custom-adapter-to-activity
 Send string from custom Adapter to Activity (2): https://stackoverflow.com/questions/35008860/how-to-pass-values-from-recycleadapter-to-mainactivity-or-other-activities
-
-NTS: check later -> https://stackoverflow.com/questions/17417839/how-to-pass-values-from-adapter-to-activity
+Send string from custom Adapter to Activity (3): https://stackoverflow.com/questions/17417839/how-to-pass-values-from-adapter-to-activity
 */

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
         Log.d(LOG_TAG, "modify in MainActivity: " + modify);
         Log.d(LOG_TAG, "adapter position: " + id);
 
-        if (modify != null) {
+        if (!modify.equals("")) {
             modifyRecord(modify, id);
         }
     }
@@ -119,21 +119,21 @@ public class MainActivity extends AppCompatActivity implements OnEditRecordSpnrS
             // send the recordId to the edit record page for editing
             Log.d(LOG_TAG, "Record to be edited");
 
-//            Intent i = new Intent(MainActivity.this, EditRecordActivity.class);
-//            i.putExtra("id", recordId);
-//            startActivity(i);
-//
-//            recordIds.clear();
+            Intent i = new Intent(MainActivity.this, EditRecordActivity.class);
+            i.putExtra("id", recordId);
+            startActivity(i);
+
+            recordIds.clear();
         } else if (modify.equals("Delete")) {
             // delete the record from the database
             Log.d(LOG_TAG, "Record deleted");
 
-//            DBHandler db = new DBHandler(this);
-//            db.deleteRecord(Integer.parseInt(recordId));
-//
-//            recordIds.clear();
-//            getList();
-//            ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+            DBHandler db = new DBHandler(this);
+            db.deleteRecord(Integer.parseInt(recordId));
+
+            recordIds.clear();
+            getList();
+            ((BaseAdapter) recordAdapter).notifyDataSetChanged();
         }
     }
 
