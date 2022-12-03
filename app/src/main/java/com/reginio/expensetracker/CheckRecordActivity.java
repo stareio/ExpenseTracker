@@ -38,6 +38,8 @@ public class CheckRecordActivity extends AppCompatActivity {
     Intent intent;
     SharedPreferences sp;
 
+    EntryFormatter ef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,28 +52,7 @@ public class CheckRecordActivity extends AppCompatActivity {
         dateButton.setText(getTodaysDate());
 
         lv = (ListView) findViewById(R.id.list);
-        getDateEntryList(getTodaysDate());
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getDateEntryList(getTodaysDate());
-        ((BaseAdapter) adapter).notifyDataSetChanged();
-    }
-
-    private void getDateEntryList(String date) {
-        DBHandler db = new DBHandler(this);
-        ArrayList<HashMap<String,String>> recordList = db.getRecordByDate(date);
-        Log.d(LOG_TAG, "recordList: " + recordList);
-
-        adapter = new SimpleAdapter(CheckRecordActivity.this, recordList,
-                R.layout.activity_check_entry_template, new String[]{"name", "category", "amount"},
-                new int[]{R.id.check_Name, R.id.check_Category, R.id.check_Amount}
-        );
-        lv.setAdapter(adapter);
     }
 
     //FOR DATE PICKER
@@ -85,12 +66,17 @@ public class CheckRecordActivity extends AppCompatActivity {
     }
 
     private void initDatePicker() {
+
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
+
+                makeInputDate(day, month, year);
+                Log.d(LOG_TAG, "Selected Date: " + date);
+
             }
         };
 
@@ -99,9 +85,17 @@ public class CheckRecordActivity extends AppCompatActivity {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
+
         int style = AlertDialog.THEME_HOLO_LIGHT;
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
 
+    }
+
+
+    private String makeInputDate(int day, int month, int year) {
+        String output =  year + "-" + day + "-" + month;
+        Log.d(LOG_TAG, "Input Date: " + output);
+        return output;
     }
 
     private String makeDateString(int day, int month, int year) {
