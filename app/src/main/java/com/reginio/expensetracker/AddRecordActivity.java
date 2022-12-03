@@ -9,11 +9,14 @@ import android.util.*;
 import android.view.View;
 import android.widget.*;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class AddRecordActivity extends AppCompatActivity {
 
-    TextView addExpIncTv, addCatSpnrTv, addDateTv, addSpecifCatTv;
+    TextView addExpIncTv, addCatSpnrTv, addDateTv, addSpecifCatTv, addAmtCurrTv;
     EditText addNameEt, addAmtEt;
     Spinner addExpIncSpnr, addCatSpnr;
     Switch addSpecifCatSw;
@@ -45,6 +48,7 @@ public class AddRecordActivity extends AppCompatActivity {
         addCatSpnrTv = findViewById(R.id.tvAddCatSpnr);
         addDateTv = findViewById(R.id.tvAddDate);
         addSpecifCatTv = findViewById(R.id.tvAddSpecifCatSw);
+        addAmtCurrTv = findViewById(R.id.tvAddAmtCurr);
 
         addExpIncSpnr = findViewById(R.id.spnrAddExpInc);
         addCatSpnr = findViewById(R.id.spnrAddCat);
@@ -62,6 +66,9 @@ public class AddRecordActivity extends AppCompatActivity {
 
         // set default date to current date
         getDateToday();
+
+        // set currency
+        getCurrency();
 
         // get selected item in expense/income spinner
         addExpIncSpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -130,15 +137,13 @@ public class AddRecordActivity extends AppCompatActivity {
 
         // date picker
         addDateBtn.setOnClickListener(view -> {
-            final Calendar cal = Calendar.getInstance();
-
-            addYear = cal.get(Calendar.YEAR);
-            addMonth = cal.get(Calendar.MONTH);
-            addDay = cal.get(Calendar.DAY_OF_MONTH);
-
             DatePickerDialog dpd = new DatePickerDialog(
                     AddRecordActivity.this,
                     (dp, year, month, day) -> {
+                        addYear = year;
+                        addMonth = month;
+                        addDay = day;
+
                         Log.d(LOG_TAG, "year: " + year);
                         Log.d(LOG_TAG, "month: " + month + " + 1 :)");
                         Log.d(LOG_TAG, "day: " + day);
@@ -154,15 +159,13 @@ public class AddRecordActivity extends AppCompatActivity {
             dpd.show();
         });
 
-        // NTS: add user-defined method to display current date as default
-        // addDateTv.setText(ef.formatDate(year, month, day));
-
         // submit inputs
         addRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = addNameEt.getText().toString();
-                String amount = addAmtEt.getText().toString();
+                // reformat amount to only have 2 decimal places or none
+                String amount = ef.formatAmount(addAmtEt.getText().toString());
                 String date = addYear + "-" + addMonth + "-" + addDay;
 
                 Log.d(LOG_TAG, "=== Values NOT stored in database yet ===========");
@@ -185,8 +188,9 @@ public class AddRecordActivity extends AppCompatActivity {
                         category = "";
                     }
 
-                    // format amount
-                    // store in database
+                    // store entry in database
+                    DBHandler dbHandler = new DBHandler(AddRecordActivity.this);
+                    dbHandler.addRecord(entryType, name, category, amount, date);
 
                     Log.d(LOG_TAG, "=== Values stored in database ===================");
                     Log.d(LOG_TAG, "entryType: " + entryType);
@@ -194,6 +198,9 @@ public class AddRecordActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "category: " + category);
                     Log.d(LOG_TAG, "date: " + date);
                     Log.d(LOG_TAG, "amount: " + amount);
+
+                    // go back to previous page
+                    onBackPressed();
 
                     // toast for successful submission
                     Toast.makeText(getApplicationContext(),
@@ -206,7 +213,7 @@ public class AddRecordActivity extends AppCompatActivity {
                     if (!checkName) {
                         invalidInputs.add("a name within 20 characters");
                     } if (!checkAmt) {
-                        invalidInputs.add("an amount between 1-10 digits");
+                        invalidInputs.add("an amount > 0 and digits between 1-10");
                     }
 
                     String separator = "";
@@ -254,8 +261,6 @@ public class AddRecordActivity extends AppCompatActivity {
 
     private void getCatSpinner() {
         List<String> itemsCat = new ArrayList<>();
-        // removes old items in spinner
-//        itemsCat.clear();
 
         if (isIncome) {
             itemsCat.add("Commissions");
@@ -280,6 +285,13 @@ public class AddRecordActivity extends AppCompatActivity {
 
         // update spinner items
         addCatSpnr.setAdapter(adapter);
+
+        // disable/enable spinner when instantiated or updated
+        if (isSpecifCategory) {
+            addCatSpnr.setEnabled(true);
+        } else {
+            addCatSpnr.setEnabled(false);
+        }
     }
 
     private void getDateToday() {
@@ -291,6 +303,33 @@ public class AddRecordActivity extends AppCompatActivity {
 
         // set default date to current date
         addDateTv.setText(ef.formatDate(addYear, addMonth, addDay));
+    }
+
+    private void getCurrency() {
+        // check if settings file exists
+        if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
+            try {
+                FileInputStream fis = openFileInput("ExpenseTracker_Settings.txt");
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+
+                // only retrieve stored currency value
+                br.readLine();
+                String currToRead = br.readLine();
+                Log.d(LOG_TAG, "currToRead: " + currToRead);
+
+                br.close();
+                isr.close();
+                fis.close();
+
+                // update the displayed currency
+                addAmtCurrTv.setText(currToRead);
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Exception: " + e);
+            }
+        } else {
+            addAmtCurrTv.setText("PHP");
+        }
     }
 }
 
