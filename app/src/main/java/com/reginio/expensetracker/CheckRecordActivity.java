@@ -111,9 +111,10 @@ public class CheckRecordActivity extends AppCompatActivity {
                 getDateEntryList(makeInputDate(day, month, year));
                 Log.d(LOG_TAG, "Selected Date: " + date);
 
-
             }
         };
+
+
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
