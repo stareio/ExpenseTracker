@@ -14,12 +14,12 @@
     <color name="dark_orange">#FFC18C14</color>
     <color name="light_gray">#F3F5F4</color>
     <color name="gray">#656C6C</color>
-    
+
     <!-- dark mode colors -->
     <color name="dark_mode_gray">#1c1b20</color>
     <color name="dark_mode_dark_gray">#121212</color>
     <color name="dark_mode_light_gray">#99a1a1</color>
-    
+
     <!-- shadow colors -->
     <color name="edittext_shadow">#E6E6E6</color>
     <color name="light_font">#FBFBFB</color>
