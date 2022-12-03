@@ -248,7 +248,7 @@ public class EditRecordActivity extends AppCompatActivity {
         }
     }
 
-    // user-defined methdos =========================================================
+    // user-defined methods =========================================================
     private void getRecord() {
         // NTS: retrieve recordId from check records page or home page
         recordId = 1;   // for debugging
