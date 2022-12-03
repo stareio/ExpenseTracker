@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".CheckRecordActivity">
 
-    <ScrollView
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/app_name"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

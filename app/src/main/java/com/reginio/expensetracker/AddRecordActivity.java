@@ -243,7 +243,7 @@ public class AddRecordActivity extends AppCompatActivity {
         }
     }
 
-    // user-defined methdos =========================================================
+    // user-defined methods =========================================================
     private void getExIncSpinner() {
         // create a list of items for each spinner
         String[] itemsExpInc = new String[]{"Expense", "Income"};

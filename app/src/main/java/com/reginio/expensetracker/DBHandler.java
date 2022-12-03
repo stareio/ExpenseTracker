@@ -73,10 +73,10 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
         String query = "SELECT type, name, category, amount, date FROM " + TABLE_EXPENSES;
-        Cursor cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
 
-        while (cursor.moveToNext()){
-            HashMap<String,String> record = new HashMap<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> record = new HashMap<>();
             record.put("type", cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
             record.put("name", cursor.getString(cursor.getColumnIndex(KEY_NAME)));
             record.put("category", cursor.getString(cursor.getColumnIndex(KEY_CAT)));
@@ -89,22 +89,22 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // Retrieve records based on id
-    public ArrayList<HashMap<String,String>> getRecordById(int id) {
+    public ArrayList<HashMap<String, String>> getRecordById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ArrayList<HashMap<String,String>> recordList = new ArrayList<>();
+        ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
         // NTS: add query for getting records from specific day
         String query = "SELECT type, name, category, amount, date FROM " + TABLE_EXPENSES;
         Cursor cursor = db.query(TABLE_EXPENSES, new String[]{
-                KEY_TYPE,
-                KEY_NAME,
-                KEY_CAT,
-                KEY_AMT,
-                KEY_DATE
-            }, KEY_ID + "= ?", new String[]{String.valueOf(id)},
-            null,null,null );
+                        KEY_TYPE,
+                        KEY_NAME,
+                        KEY_CAT,
+                        KEY_AMT,
+                        KEY_DATE
+                }, KEY_ID + "= ?", new String[]{String.valueOf(id)},
+                null, null, null);
 
         if (cursor.moveToNext()) {
-            HashMap<String,String> record = new HashMap<>();
+            HashMap<String, String> record = new HashMap<>();
             record.put("type", cursor.getString(cursor.getColumnIndex(KEY_TYPE)));
             record.put("name", cursor.getString(cursor.getColumnIndex(KEY_NAME)));
             record.put("category", cursor.getString(cursor.getColumnIndex(KEY_CAT)));
@@ -121,7 +121,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void deleteRecord(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EXPENSES, KEY_ID + "= ?",
-                    new String[]{String.valueOf(id)});
+                new String[]{String.valueOf(id)});
 
         db.close();
     }
@@ -141,6 +141,21 @@ public class DBHandler extends SQLiteOpenHelper {
         cv.put(KEY_DATE, date);
 
         return db.update(TABLE_EXPENSES, cv, KEY_ID + "= ?",
-                                new String[]{String.valueOf(id)});
+                new String[]{String.valueOf(id)});
     }
+
+    public ArrayList<HashMap<String, String>> getDates() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
+        String query = "SELECT DISTINCT date FROM " + TABLE_EXPENSES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            HashMap<String, String> record = new HashMap<>();
+            record.put("date", cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+            recordList.add(record);
+        }
+        return recordList;
+    }
+
 }
