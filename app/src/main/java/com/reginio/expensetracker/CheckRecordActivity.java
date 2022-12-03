@@ -18,9 +18,13 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CheckRecordActivity extends AppCompatActivity {
 
@@ -35,8 +39,11 @@ public class CheckRecordActivity extends AppCompatActivity {
 
     ListAdapter adapter;
 
+    ArrayList<String> recordIds;
+    RecordAdapter recordAdapter;
     Intent intent;
     SharedPreferences sp;
+    String currency;
 
     EntryFormatter ef;
 
@@ -52,7 +59,22 @@ public class CheckRecordActivity extends AppCompatActivity {
         dateButton.setText(getTodaysDate());
 
         lv = (ListView) findViewById(R.id.list);
+        getDateEntryList(getTodaysDate());
 
+    }
+
+    private void getDateEntryList(String date) {
+        DBHandler db = new DBHandler(this);
+        ArrayList<HashMap<String,String>> dateList = db.getRecordByDate(date);
+
+        Log.d(LOG_TAG, "Input Date: " + date);
+        Log.d(LOG_TAG, "recordList: " + dateList);
+
+        adapter = new SimpleAdapter(CheckRecordActivity.this, dateList,
+                R.layout.activity_check_entry_template, new String[]{"name", "category", "amount"},
+                new int[]{R.id.check_Name, R.id.check_Category, R.id.check_Amount}
+        );
+        lv.setAdapter(adapter);
     }
 
     //FOR DATE PICKER
