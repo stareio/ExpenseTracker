@@ -70,7 +70,24 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
         // set values in each widget
         String category = (recordsList.get(position)).get("category");
 
+//        itemsCat.add("Commissions");
+//        itemsCat.add("Pocket Money");
+//        itemsCat.add("Salary");
+//        itemsCat.add("Savings");
+//        itemsCat.add("Car");
+//        itemsCat.add("Commute");
+//        itemsCat.add("Drinks");
+//        itemsCat.add("Food");
+//        itemsCat.add("Groceries");
+//        itemsCat.add("Medicine");
+//        itemsCat.add("Rental");
+
         // NTS: set image based on category
+        switch (category){
+            //for income
+            case "Commissions":
+        }
+
         // switch case
 
         if (category.equals("")) {

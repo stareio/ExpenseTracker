@@ -98,8 +98,9 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
 
         //List of Records
         lv = findViewById(R.id.lvHomeRecords);
-
         getList();  // retrieve list of records
+
+        //
 
         //Dark/Light Mode
         sp = getSharedPreferences("MODE", Context.MODE_PRIVATE);
