@@ -56,7 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
         // get selected item in currency spinner
         currencySpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+                                       int position, long id) {
                 currency = currencySpnr.getSelectedItem().toString();
             }
 
@@ -113,9 +114,10 @@ public class SettingsActivity extends AppCompatActivity {
             // save mode as dark/light
             setMode();
 
-            Toast.makeText(getApplicationContext(), "Current Settings Saved!", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Current Settings Saved!",
+                    Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Exception: " + e);
         }
     }
 
@@ -145,11 +147,9 @@ public class SettingsActivity extends AppCompatActivity {
 
                 // update the displayed username and currency
                 nameEt.setText(nameToRead);
-
-                // NTS: fix issue -> not displaying if USD is saved
                 currencySpnr.setSelection(getIndex(currencySpnr, currToRead), true);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(LOG_TAG, "Exception: " + e);
             }
         } else {
             Log.d(LOG_TAG, "Settings file does NOT exist");
@@ -157,25 +157,24 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void populateCurrencySpinner() {
-        // get the spinner from the xml.
+        // get the spinner from the xml
         currencySpnr = findViewById(R.id.spnrCurrency);
 
-        // create a list of items for the spinner.
+        // create a list of items for the spinner
         String[] items = new String[]{"PHP", "USD"};
 
-        // create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        // create an adapter to describe how the items are displayed
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 R.layout.spinner,
                 items
         );
 
-        // set the spinners adapter to the previously created one.
+        // set the spinner adapter to the previously created one
         currencySpnr.setAdapter(adapter);
     }
 
     private int getIndex(Spinner spinner, String myString){
-
         int index = 0;
 //        Log.d(LOG_TAG, "spinner.getItemAtPosition(0): " + spinner.getItemAtPosition(0));
 //        Log.d(LOG_TAG, "spinner.getItemAtPosition(1): " + spinner.getItemAtPosition(1));
@@ -213,7 +212,7 @@ Customized spinner: https://www.youtube.com/watch?v=N8GfosWTt44
 Get switch value: https://stackoverflow.com/questions/26676367/how-to-get-switch-value-in-android
 Get switch value and store in database: https://stackoverflow.com/questions/41374946/how-to-get-switch-button-value-and-stored-in-database
 Switch on/off event listener: https://stackoverflow.com/questions/11278507/android-widget-switch-on-off-event-listener
-Set spinner positiono: https://stackoverflow.com/questions/8769368/how-to-set-position-in-spinner
+Set spinner position: https://stackoverflow.com/questions/8769368/how-to-set-position-in-spinner
 Get spinner selected item: https://stackoverflow.com/questions/1337424/android-spinner-get-the-selected-item-change-event
 Get position of each String value in spinner: https://stackoverflow.com/questions/13112020/android-spinner-get-position-of-string-in-code-behind
 Dark and light mode: https://www.youtube.com/watch?v=_XN-c5Yz0wk

@@ -27,6 +27,10 @@
             android:exported="false"
             android:label="Add Record" />
         <activity
+            android:name=".EditRecordActivity"
+            android:label="Edit Record"
+            android:exported="false" />
+        <activity
             android:name=".DevelopersActivity"
             android:exported="false"
             android:label="" />
@@ -42,10 +46,6 @@
             android:name=".SplashActivity"
             android:exported="false"
             android:label="Navigation" />
-        <activity
-            android:name=".EditRecordActivity"
-            android:exported="false"
-            android:label="Edit Records" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
