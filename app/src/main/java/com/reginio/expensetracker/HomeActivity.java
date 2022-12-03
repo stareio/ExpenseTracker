@@ -24,7 +24,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //Instantiations
     private TextView incomeText, expenseText;
     private ImageView settingBtn;
-    private ListView lv;
     String totalIncome = "0";
     String totalExpense = "0";
     String category = "";
@@ -35,8 +34,11 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //Settings Button
     ImageButton settingsBtn;
 
+    //Date Picker Button
+    Button datePickerBtn;
+
     //List of Records
-    ListView lv;
+    private ListView lv;
     ArrayList<String> recordIds;
     RecordAdapter recordAdapter;
     String currency;
@@ -55,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         expenseText = findViewById(R.id.expenses_txt);
 
         //Item list
-        lv = (ListView) findViewById(R.id.item_list);
+        lv = (ListView) findViewById(R.id.lvHomeRecords);
         //DB handler
         DBHandler db = new DBHandler(this);
         //ArrayList
@@ -83,8 +85,14 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         //Settings Page
         settingsBtn = findViewById(R.id.ibSettings);
         settingsBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(intent);
+            Intent toSettings = new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(toSettings);
+        });
+
+        datePickerBtn = findViewById(R.id.datePicker_btn);
+        datePickerBtn.setOnClickListener(view -> {
+            Intent toCheckRec = new Intent(HomeActivity.this, CheckRecordActivity.class);
+            startActivity(toCheckRec);
         });
 
         //List of Records
@@ -132,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         // for loop
     }
 
-    //FOR DATE PICKER ==============================================================================
+//    //FOR DATE PICKER ==============================================================================
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -148,22 +156,45 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                     month = month + 1;
                     String date = makeDateString(day, month, year);
-                    dateButton.setText(date);
+                    datePickerBtn.setText(date);
                 }
             };
-
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        int style = AlertDialog.THEME_HOLO_LIGHT;
-        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
 
     }
 
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month) {
+        switch (month) {
+            case 1:
+                return "JAN";
+            case 2:
+                return "FEB";
+            case 3:
+                return "MAR";
+            case 4:
+                return "APR";
+            case 5:
+                return "MAY";
+            case 6:
+                return "JUN";
+            case 7:
+                return "JUL";
+            case 8:
+                return "AUG";
+            case 9:
+                return "SEP";
+            case 10:
+                return "OCT";
+            case 11:
+                return "NOV";
+            case 12:
+                return "DEC";
+            default:
+                return "JAN";
+        }
     }
 
     // FOR LIST OF RECORDS =========================================================================
