@@ -67,9 +67,6 @@ public class AddRecordActivity extends AppCompatActivity {
         // set default date to current date
         getDateToday();
 
-        // set currency
-        getCurrency();
-
         // get selected item in expense/income spinner
         addExpIncSpnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -303,33 +300,6 @@ public class AddRecordActivity extends AppCompatActivity {
 
         // set default date to current date
         addDateTv.setText(ef.formatDate(addYear, addMonth, addDay));
-    }
-
-    private void getCurrency() {
-        // check if settings file exists
-        if (getBaseContext().getFileStreamPath("ExpenseTracker_Settings.txt").exists()) {
-            try {
-                FileInputStream fis = openFileInput("ExpenseTracker_Settings.txt");
-                InputStreamReader isr = new InputStreamReader(fis);
-                BufferedReader br = new BufferedReader(isr);
-
-                // only retrieve stored currency value
-                br.readLine();
-                String currToRead = br.readLine();
-                Log.d(LOG_TAG, "currToRead: " + currToRead);
-
-                br.close();
-                isr.close();
-                fis.close();
-
-                // update the displayed currency
-                addAmtCurrTv.setText(currToRead);
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exception: " + e);
-            }
-        } else {
-            addAmtCurrTv.setText("PHP");
-        }
     }
 }
 
