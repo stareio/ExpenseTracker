@@ -18,9 +18,16 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class CheckRecordActivity extends AppCompatActivity {
 
@@ -35,8 +42,11 @@ public class CheckRecordActivity extends AppCompatActivity {
 
     ListAdapter adapter;
 
+    ArrayList<String> recordIds;
+    RecordAdapter recordAdapter;
     Intent intent;
     SharedPreferences sp;
+    String currency;
 
     EntryFormatter ef;
 
@@ -52,7 +62,22 @@ public class CheckRecordActivity extends AppCompatActivity {
         dateButton.setText(getTodaysDate());
 
         lv = (ListView) findViewById(R.id.list);
+        getDateEntryList(getTodaysDateInput());
 
+    }
+
+    private void getDateEntryList(String date) {
+        DBHandler db = new DBHandler(this);
+        ArrayList<HashMap<String,String>> dateList = db.getRecordByDate(date);
+
+        Log.d(LOG_TAG, "Input Date: " + date);
+        Log.d(LOG_TAG, "recordList: " + dateList);
+
+        adapter = new SimpleAdapter(CheckRecordActivity.this, dateList,
+                R.layout.activity_check_entry_template, new String[]{"name", "category", "amount"},
+                new int[]{R.id.check_Name, R.id.check_Category, R.id.check_Amount}
+        );
+        lv.setAdapter(adapter);
     }
 
     //FOR DATE PICKER
@@ -65,6 +90,15 @@ public class CheckRecordActivity extends AppCompatActivity {
         return makeDateString(day,month,year);
     }
 
+    private String getTodaysDateInput() {
+        Calendar today = Calendar.getInstance();
+        int year = today.get(Calendar.YEAR);
+        int month = today.get(Calendar.MONTH);
+        month = month + 1;
+        int day = today.get(Calendar.DAY_OF_MONTH);
+        return year + "-" + month + "-" + day;
+    }
+
     private void initDatePicker() {
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -74,11 +108,13 @@ public class CheckRecordActivity extends AppCompatActivity {
                 String date = makeDateString(day, month, year);
                 dateButton.setText(date);
 
-                makeInputDate(day, month, year);
+                getDateEntryList(makeInputDate(day, month, year));
                 Log.d(LOG_TAG, "Selected Date: " + date);
 
             }
         };
+
+
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
