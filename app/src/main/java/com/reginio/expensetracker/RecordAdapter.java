@@ -68,8 +68,39 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
         // set values in each widget
         String category = (recordsList.get(position)).get("category");
 
+//        itemsCat.add("Commissions");
+//        itemsCat.add("Pocket Money");
+//        itemsCat.add("Salary");
+//        itemsCat.add("Savings");
+
+//        itemsCat.add("Car");
+//        itemsCat.add("Commute");
+//        itemsCat.add("Drinks");
+//        itemsCat.add("Food");
+//        itemsCat.add("Groceries");
+//        itemsCat.add("Medicine");
+//        itemsCat.add("Rental");
+
         // NTS: set image based on category
         // switch case
+        switch (category){
+            //for income
+            case "Commissions"  :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_account_balance_24); break;
+            case "Salary"       :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_account_balance_24); break;
+            case "Pocket Money" :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_account_balance_wallet_24); break;
+            case "Savings"      :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_savings_24); break;
+
+            //for expenses
+            case "Car"          :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_directions_car_24); break;
+            case "Commute"      :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_commute_24); break;
+            case "Drinks"       :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_water_drop_24); break;
+            case "Food"         :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_food_bank_24); break;
+            case "Groceries"    :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_local_grocery_store_24); break;
+            case "Medicine"     :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_medical_services_24); break;
+            case "Rental"       :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_house_24); break;
+
+            default: viewHolder.recordIconIv.setImageResource(R.drawable.default_icon);
+        }
 
         if (category.equals("")) {
             viewHolder.recordCategoryTv.setTypeface(null, Typeface.ITALIC);

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean isDark = sp.getBoolean("night", false);
 
         checkBtn.setOnClickListener(view -> nextActivity(CheckRecordActivity.class));
-        
+
         homeBtn.setOnClickListener(view -> nextActivity(HomeActivity.class));
 
         if (isDark) {
