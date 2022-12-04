@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
 
     //List of Records
     ListView lv;
+    String date;
     ArrayList<String> recordIds;
     RecordAdapter recordAdapter;
 
@@ -141,8 +142,15 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
-        month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        // used later to retrieve records
+        date = year + "-" + month + "-" + day;
+        Log.d(LOG_TAG, "date to retrieve records: " + date);
+
+        // add 1 to month since its range of values is 0-11
+        month = month + 1;
+
         return makeDateString(day,month,year);
     }
 
@@ -209,11 +217,12 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     private void getList() {
         DBHandler db = new DBHandler(this);
         recordIds = new ArrayList<>();
-        ArrayList<HashMap<String,String>> recordsList = db.getRecords();
+        ArrayList<HashMap<String,String>> recordsList = db.getRecordsbyDate(date);
 
-        //Initalize totalIncome and totalExpense
+        //Initalize totalIncome, totalExpense, totalBalance
         totalIncome = 0.00;
         totalExpense = 0.00;
+        totalBalance = 0.00;
 
         int count = 0;
         for (Map<String,String> map : recordsList) {

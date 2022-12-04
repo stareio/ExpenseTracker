@@ -71,11 +71,12 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Retrieve records
-    public ArrayList<HashMap<String, String>> getRecords() {
+    // Retrieve records based on date
+    public ArrayList<HashMap<String, String>> getRecordsbyDate(String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
-        String query = "SELECT id, type, name, category, amount, date FROM " + TABLE_EXPENSES;
+        String query = "SELECT * FROM " + TABLE_EXPENSES
+                            + " WHERE date = '" + date + "'";
         Cursor cursor = db.rawQuery(query,null);
 
         while (cursor.moveToNext()){
@@ -96,7 +97,6 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<HashMap<String,String>> getRecordById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
-        // NTS: add query for getting records from specific day
         String query = "SELECT type, name, category, amount, date FROM " + TABLE_EXPENSES;
         Cursor cursor = db.query(TABLE_EXPENSES, new String[]{
                         KEY_TYPE,
@@ -136,8 +136,6 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        // NTS: create input validator & formatter classes
-
         cv.put(KEY_TYPE, type);
         cv.put(KEY_NAME, name);
         cv.put(KEY_CAT, category);
@@ -148,6 +146,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(id)});
     }
 
+    // Get all available dates in the table
     public ArrayList<HashMap<String, String>> getDates() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> recordList = new ArrayList<>();
