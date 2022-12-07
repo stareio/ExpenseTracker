@@ -87,7 +87,7 @@ public class EditRecordActivity extends AppCompatActivity {
 
                 // populate category spinner
                 // if expense is selected, items are car, food, drinks, etc.
-                // if income is selected, items are commissions, salary, pocket money, etc.
+                // if income is selected, items are salary, pocket money, etc.
                 getCatSpinner();
             }
 
@@ -327,7 +327,6 @@ public class EditRecordActivity extends AppCompatActivity {
         List<String> itemsCat = new ArrayList<>();
 
         if (isIncome) {
-            itemsCat.add("Commissions");
             itemsCat.add("Pocket Money");
             itemsCat.add("Salary");
             itemsCat.add("Savings");

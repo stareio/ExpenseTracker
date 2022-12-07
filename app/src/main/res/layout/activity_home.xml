@@ -21,7 +21,7 @@
             android:layout_marginRight="12dp"
             android:background="@null"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/ic_baseline_settings_24" />
+            app:srcCompat="@drawable/btn_settings" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewGraph"
@@ -148,12 +148,12 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/datePicker_btn"
-                style="android:spinnerStyle"
+                android:id="@+id/dateChange_btn"
                 android:layout_width="200dp"
                 android:layout_height="61dp"
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="#C18C14"
+                android:elevation="10dp"
                 android:onClick="openDatePicker"
                 android:text="JAN 01 2022"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -163,11 +163,11 @@
                 android:id="@+id/ibAddRecord"
                 android:layout_width="58dp"
                 android:layout_height="58dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="24dp"
                 android:layout_marginRight="28dp"
                 android:background="@null"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/ic_add_record" />
+                app:srcCompat="@drawable/btn_add_record" />
         </LinearLayout>
 
         <ListView

@@ -68,24 +68,9 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
         // set values in each widget
         String category = (recordsList.get(position)).get("category");
 
-//        itemsCat.add("Commissions");
-//        itemsCat.add("Pocket Money");
-//        itemsCat.add("Salary");
-//        itemsCat.add("Savings");
-
-//        itemsCat.add("Car");
-//        itemsCat.add("Commute");
-//        itemsCat.add("Drinks");
-//        itemsCat.add("Food");
-//        itemsCat.add("Groceries");
-//        itemsCat.add("Medicine");
-//        itemsCat.add("Rental");
-
-        // NTS: set image based on category
         // switch case
         switch (category){
             //for income
-            case "Commissions"  :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_account_balance_24); break;
             case "Salary"       :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_account_balance_24); break;
             case "Pocket Money" :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_account_balance_wallet_24); break;
             case "Savings"      :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_savings_24); break;
@@ -166,7 +151,7 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
         String[] items = new String[]{"", "Edit", "Delete"};
 
         // create an adapter to describe how the items are displayed
-        ArrayAdapter<String> spnrAdapter = new ArrayAdapter<>(
+        ModifyAdapter spnrAdapter = new ModifyAdapter(
                 context,
                 R.layout.spinner,
                 items

@@ -60,11 +60,11 @@
                             android:layout_width="150dp"
                             android:layout_height="210dp"
                             android:layout_marginStart="32dp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_dev1"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/cvDev1"
@@ -126,11 +126,11 @@
                             android:layout_width="150dp"
                             android:layout_height="210dp"
                             android:layout_marginEnd="32dp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_dev2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/cvDev2"
@@ -191,11 +191,11 @@
                             android:layout_width="150dp"
                             android:layout_height="210dp"
                             android:layout_marginStart="32dp"
-                            android:scaleType="fitXY"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_dev3"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/cvDev3"
