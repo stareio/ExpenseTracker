@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -19,6 +20,7 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CheckRecordActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
 
@@ -104,8 +106,8 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
+//                month = month + 1;
+                String date = makeDateString(day, (month + 1), year);
                 dateButton.setText(date);
 
                 getDateEntryList(makeInputDate(day, month, year));

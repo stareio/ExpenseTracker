@@ -166,7 +166,7 @@ public class CheckRecordAdapter extends BaseAdapter implements OnEditRecordSpnrS
         String[] items = new String[]{"", "Edit", "Delete"};
 
         // create an adapter to describe how the items are displayed
-        ArrayAdapter<String> spnrAdapter = new ArrayAdapter<>(
+        ModifyAdapter spnrAdapter = new ModifyAdapter(
                 context,
                 R.layout.spinner,
                 items
