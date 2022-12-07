@@ -68,7 +68,7 @@ public class CheckRecordActivity extends AppCompatActivity {
 
     private void getDateEntryList(String date) {
         DBHandler db = new DBHandler(this);
-        ArrayList<HashMap<String,String>> dateList = db.getRecordByDate(date);
+        ArrayList<HashMap<String,String>> dateList = db.getRecordsbyDate(date);
 
         Log.d(LOG_TAG, "Input Date: " + date);
         Log.d(LOG_TAG, "recordList: " + dateList);
