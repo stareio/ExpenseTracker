@@ -44,10 +44,6 @@
             android:label="Check Records" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false"
-            android:label="Navigation" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true"
             android:label="Navigation" >
             <intent-filter>
@@ -56,6 +52,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="Navigation" />
     </application>
 
 </manifest>
