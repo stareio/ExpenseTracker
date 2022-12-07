@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         balanceText = findViewById(R.id.balance_txt);
 
         //Date Picker Button
-        initDatePicker();
+        //initDatePicker();
         dateButton.setText(getTodaysDate());
 
         //Settings Page
