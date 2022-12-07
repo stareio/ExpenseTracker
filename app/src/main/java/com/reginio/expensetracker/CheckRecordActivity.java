@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class CheckRecordActivity extends AppCompatActivity {
+public class CheckRecordActivity extends AppCompatActivity implements OnEditRecordSpnrSelect {
 
     //Date Picker Object
     private DatePickerDialog datePickerDialog;
@@ -41,9 +41,9 @@ public class CheckRecordActivity extends AppCompatActivity {
     ListView lv;
 
     ListAdapter adapter;
+    RecordAdapter recordAdapter;
 
     ArrayList<String> recordIds;
-    RecordAdapter recordAdapter;
     Intent intent;
     SharedPreferences sp;
     String currency;
@@ -73,11 +73,19 @@ public class CheckRecordActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Input Date: " + date);
         Log.d(LOG_TAG, "recordList: " + dateList);
 
-        adapter = new SimpleAdapter(CheckRecordActivity.this, dateList,
-                R.layout.activity_check_entry_template, new String[]{"name", "category", "amount"},
-                new int[]{R.id.check_Name, R.id.check_Category, R.id.check_Amount}
-        );
-        lv.setAdapter(adapter);
+        int count = 0;
+        for (Map<String,String> map : dateList) {
+            recordIds.add(map.get("id"));
+            Log.d(LOG_TAG, "Stored id " + map.get("id") + " at index " + count);
+
+            count++;
+        }
+        Log.d(LOG_TAG, "recordIds after for loop: " + recordIds);
+
+        recordAdapter = new RecordAdapter(CheckRecordActivity.this, dateList, this);
+        lv.setAdapter(recordAdapter);
+
+        db.close();
     }
 
     //FOR DATE PICKER
@@ -160,4 +168,51 @@ public class CheckRecordActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+//    FOR RECORD ADAPTER =============================================
+
+    @Override
+    public void onItemSelectedListener(String modify, int id) {
+        Log.d(LOG_TAG, "CheckRecordActivity ==========================");
+        Log.d(LOG_TAG, "modify in CheckRecordActivity: " + modify);
+        Log.d(LOG_TAG, "adapter position: " + id);
+
+        if (!modify.equals("")) {
+            modifyRecord(modify, id);
+        }
+    }
+
+    // edit/delete the record
+    private void modifyRecord(String modify, int id) {
+        String recordId = recordIds.get(id);
+        Log.d(LOG_TAG, "recordId: " + recordId);
+
+        if (modify.equals("Edit")) {
+            // send the recordId to the edit record page for editing
+            Log.d(LOG_TAG, "Record to be edited");
+
+            Intent i = new Intent(CheckRecordActivity.this, EditRecordActivity.class);
+            i.putExtra("id", recordId);
+            startActivity(i);
+        } else if (modify.equals("Delete")) {
+            // delete the record from the database
+            Log.d(LOG_TAG, "Record deleted");
+
+            DBHandler db = new DBHandler(this);
+            db.deleteRecord(Integer.parseInt(recordId));
+
+            recordIds.clear();
+            getDateEntryList(getTodaysDateInput());
+            ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+        }
+    }
+
+    // update the displayed list of records
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recordIds.clear();
+        getDateEntryList(getTodaysDateInput());
+        ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+
+    }
 }
