@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.*;
-import android.app.DatePickerDialog.*;
 import android.content.*;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,9 +23,8 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //Instantiations
   
     //Date Picker Object
-    private DatePickerDialog datePickerDialog;
-    private Button dateButton;
-    private TextView incomeText, expenseText, balanceText;
+    Button dateChangerBtn;
+    TextView incomeText, expenseText, balanceText;
     Double totalIncome;
     Double totalExpense;
     Double totalBalance;
@@ -36,10 +34,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
 
     //Settings Button
     ImageButton settingsBtn;
-
-
-    //Date Picker Button
-    Button datePickerBtn;
 
     //Add Record Button
     ImageButton addRecordBtn;
@@ -64,13 +58,13 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         ef = new EntryFormatter();
 
         //Set Text from value
-        dateButton = findViewById(R.id.datePicker_btn);
+        dateChangerBtn = findViewById(R.id.dateChange_btn);
         incomeText = findViewById(R.id.income_txt);
         expenseText = findViewById(R.id.expenses_txt);
         balanceText = findViewById(R.id.balance_txt);
 
-        //Date Picker Button
-        dateButton.setText(getTodaysDate());
+        //Date Changer Button
+        dateChangerBtn.setText(getTodaysDate());
 
         //Settings Page
         settingsBtn = findViewById(R.id.ibSettings);
@@ -79,9 +73,9 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
             startActivity(toSettings);
         });
 
-        datePickerBtn = findViewById(R.id.datePicker_btn);
-        datePickerBtn.setText(getTodaysDate() + " ▼");
-        datePickerBtn.setOnClickListener(view -> {
+        dateChangerBtn = findViewById(R.id.dateChange_btn);
+        dateChangerBtn.setText(getTodaysDate());
+        dateChangerBtn.setOnClickListener(view -> {
             Intent toCheckRec = new Intent(HomeActivity.this, CheckRecordActivity.class);
             startActivity(toCheckRec);
         });
@@ -187,11 +181,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
             default : return "JAN";
         }
     }
-
-    public void openDatePicker(View view) {
-        datePickerDialog.show();
-    }
-
     // FOR LIST OF RECORDS =========================================================================
     // retrieve modify value from RecordAdapter
     @Override
