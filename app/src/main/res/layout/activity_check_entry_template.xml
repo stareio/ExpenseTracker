@@ -10,9 +10,14 @@
     <!-- Start of Actual Repeated Object -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="414dp"
+        android:layout_width="432dp"
         android:layout_height="59dp"
-        android:layout_marginVertical="10dp">
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="1dp">
 
         <TextView
             android:id="@+id/check_Category"
@@ -58,8 +63,8 @@
             android:layout_marginEnd="4dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
             android:contentDescription="Settings"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

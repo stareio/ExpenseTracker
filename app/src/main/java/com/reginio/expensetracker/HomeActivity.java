@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.*;
-import android.app.DatePickerDialog.*;
 import android.content.*;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,9 +23,8 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //Instantiations
   
     //Date Picker Object
-    private DatePickerDialog datePickerDialog;
-    private Button dateButton;
-    private TextView incomeText, expenseText, balanceText;
+    Button dateChangerBtn;
+    TextView incomeText, expenseText, balanceText;
     Double totalIncome;
     Double totalExpense;
     Double totalBalance;
@@ -37,15 +35,12 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     //Settings Button
     ImageButton settingsBtn;
 
-
-    //Date Picker Button
-    Button datePickerBtn;
-
     //Add Record Button
     ImageButton addRecordBtn;
 
     //List of Records
-    private ListView lv;
+    ListView lv;
+    String date;
     ArrayList<String> recordIds;
     RecordAdapter recordAdapter;
 
@@ -63,14 +58,13 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         ef = new EntryFormatter();
 
         //Set Text from value
-        dateButton = findViewById(R.id.datePicker_btn);
+        dateChangerBtn = findViewById(R.id.dateChange_btn);
         incomeText = findViewById(R.id.income_txt);
         expenseText = findViewById(R.id.expenses_txt);
         balanceText = findViewById(R.id.balance_txt);
 
-        //Date Picker Button
-        //initDatePicker();
-        dateButton.setText(getTodaysDate());
+        //Date Changer Button
+        dateChangerBtn.setText(getTodaysDate());
 
         //Settings Page
         settingsBtn = findViewById(R.id.ibSettings);
@@ -79,9 +73,9 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
             startActivity(toSettings);
         });
 
-        datePickerBtn = findViewById(R.id.datePicker_btn);
-        datePickerBtn.setText(getTodaysDate() + " ▼");
-        datePickerBtn.setOnClickListener(view -> {
+        dateChangerBtn = findViewById(R.id.dateChange_btn);
+        dateChangerBtn.setText(getTodaysDate());
+        dateChangerBtn.setOnClickListener(view -> {
             Intent toCheckRec = new Intent(HomeActivity.this, CheckRecordActivity.class);
             startActivity(toCheckRec);
         });
@@ -154,8 +148,15 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
-        month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        // used later to retrieve records
+        date = year + "-" + month + "-" + day;
+        Log.d(LOG_TAG, "date to retrieve records: " + date);
+
+        // add 1 to month since its range of values is 0-11
+        month = month + 1;
+
         return makeDateString(day,month,year);
     }
 
@@ -180,11 +181,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
             default : return "JAN";
         }
     }
-
-    public void openDatePicker(View view) {
-        datePickerDialog.show();
-    }
-
     // FOR LIST OF RECORDS =========================================================================
     // retrieve modify value from RecordAdapter
     @Override
@@ -202,11 +198,12 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
     private void getList() {
         DBHandler db = new DBHandler(this);
         recordIds = new ArrayList<>();
-        ArrayList<HashMap<String,String>> recordsList = db.getRecords();
+        ArrayList<HashMap<String,String>> recordsList = db.getRecordsbyDate(date);
 
-        //Initalize totalIncome and totalExpense
+        //Initalize totalIncome, totalExpense, totalBalance
         totalIncome = 0.00;
         totalExpense = 0.00;
+        totalBalance = 0.00;
 
         int count = 0;
         for (Map<String,String> map : recordsList) {
