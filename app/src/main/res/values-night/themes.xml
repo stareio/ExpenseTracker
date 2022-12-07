@@ -11,12 +11,21 @@
         <item name="colorOnSecondary">@color/dark_mode_dark_gray</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="colorSurface">@color/yellow</item>
     </style>
 
-    <!-- Light Mode -->
-    <!-- Screen Background for Add/Edit Record, Settings, and Developers Pages -->
+    <!-- Dark Mode -->
+    <!-- Hide Action bar -->
+    <style name="AppTheme.Splash" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- Action bar -->
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/yellow</item>
+    </style>
+
+    <!-- Screen Background for Home and Check Records Pages -->
     <style name="SCREEN_1">
         <item name="android:background">@color/yellow</item>
     </style>
@@ -78,3 +87,10 @@
         <item name="android:textColor">@color/dark_mode_light_gray</item>
     </style>
 </resources>
+
+<!--
+References
+Dark and light mode: https://www.youtube.com/watch?v=_XN-c5Yz0wk
+Change switch color: https://stackoverflow.com/questions/11253512/change-on-color-of-a-switch
+Change action bar color: https://stackoverflow.com/questions/8024706/how-do-i-change-the-background-color-of-the-actionbar-of-an-actionbaractivity-us
+-->

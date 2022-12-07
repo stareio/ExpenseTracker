@@ -57,7 +57,7 @@
 
                         <ImageView
                             android:id="@+id/ivDev1"
-                            android:layout_width="150dp"
+                            android:layout_width="170dp"
                             android:layout_height="210dp"
                             android:layout_marginStart="32dp"
                             android:scaleType="centerCrop"
@@ -98,12 +98,11 @@
                                     android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/sf_bold"
                                     android:text="Carlos Diaz"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/yellow"
                                     android:textSize="20sp" />
 
                                 <TextView
                                     android:id="@+id/tvDevDescr1"
-                                    style="@style/Widget.AppCompat.TextView"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="2dp"
@@ -123,7 +122,7 @@
 
                         <ImageView
                             android:id="@+id/ivDev2"
-                            android:layout_width="150dp"
+                            android:layout_width="170dp"
                             android:layout_height="210dp"
                             android:layout_marginEnd="32dp"
                             android:scaleType="centerCrop"
@@ -164,12 +163,11 @@
                                     android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/sf_bold"
                                     android:text="Sophie Reginio"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/yellow"
                                     android:textSize="20sp" />
 
                                 <TextView
                                     android:id="@+id/tvDevDescr2"
-                                    style="@style/Widget.AppCompat.TextView"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="2dp"
@@ -188,7 +186,7 @@
 
                         <ImageView
                             android:id="@+id/ivDev3"
-                            android:layout_width="150dp"
+                            android:layout_width="170dp"
                             android:layout_height="210dp"
                             android:layout_marginStart="32dp"
                             android:scaleType="centerCrop"
@@ -229,7 +227,7 @@
                                     android:layout_gravity="center_horizontal"
                                     android:fontFamily="@font/sf_bold"
                                     android:text="Michael Sarmiento"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/yellow"
                                     android:textSize="19sp" />
 
                                 <TextView
@@ -248,7 +246,7 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="210dp" />
+                        android:layout_height="180dp" />
 
                 </LinearLayout>
             </ScrollView>
