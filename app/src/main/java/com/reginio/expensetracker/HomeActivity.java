@@ -96,10 +96,6 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         //Pie Chart Implementation
         pieChart = findViewById(R.id.piechart);
 
-        //Dark/Light Mode
-        sp = getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        Boolean isDark = sp.getBoolean("night", false);
-
         //Greeting
         // check for saved username
         readSettings();
@@ -110,6 +106,9 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
                 Toast.LENGTH_LONG).show();
         
         //Dark/Light Mode
+        sp = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        Boolean isDark = sp.getBoolean("night", false);
+
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -316,3 +315,8 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
         Log.d(LOG_TAG, "nameToGreet: " + nameToGreet);
     }
 }
+
+/*
+How to update values in RecyclerView on onResume(): https://stackoverflow.com/questions/62984025/how-can-i-refresh-recylverview-item-when-i-press-back
+notifyDataSetChanged() not showing up: https://stackoverflow.com/questions/32261572/notifydatasetchanged-not-showing-up-for-custom-list-adapter
+*/
