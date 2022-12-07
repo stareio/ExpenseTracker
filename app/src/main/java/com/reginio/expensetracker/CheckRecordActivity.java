@@ -25,7 +25,7 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
     ListView lv;
 
     ListAdapter adapter;
-    RecordAdapter recordAdapter;
+    CheckRecordAdapter recordAdapter;
 
     ArrayList<String> recordIds;
     Intent intent;
@@ -52,6 +52,7 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
 
     private void getDateEntryList(String date) {
         DBHandler db = new DBHandler(this);
+        recordIds = new ArrayList<>();
         ArrayList<HashMap<String,String>> dateList = db.getRecordsbyDate(date);
 
         Log.d(LOG_TAG, "Input Date: " + date);
@@ -66,7 +67,7 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
         }
         Log.d(LOG_TAG, "recordIds after for loop: " + recordIds);
 
-        recordAdapter = new RecordAdapter(CheckRecordActivity.this, dateList, this);
+        recordAdapter = new CheckRecordAdapter(CheckRecordActivity.this, dateList, this);
         lv.setAdapter(recordAdapter);
 
         db.close();
@@ -96,8 +97,8 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
+//                month = month + 1;
+                String date = makeDateString(day, (month + 1), year);
                 dateButton.setText(date);
 
                 getDateEntryList(makeInputDate(day, month, year));
