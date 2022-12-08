@@ -24,15 +24,13 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
 
     ListView lv;
 
-    ListAdapter adapter;
     CheckRecordAdapter recordAdapter;
 
     ArrayList<String> recordIds;
+    String inputDate;
+
     Intent intent;
     SharedPreferences sp;
-    String currency;
-
-    EntryFormatter ef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +44,7 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
         dateButton.setText(getTodaysDate());
 
         lv = (ListView) findViewById(R.id.list);
-        getDateEntryList(getTodaysDateInput());
-
+        getDateEntryList(inputDate);
     }
 
     private void getDateEntryList(String date) {
@@ -78,48 +75,38 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
-        month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day,month,year);
-    }
 
-    private String getTodaysDateInput() {
-        Calendar today = Calendar.getInstance();
-        int year = today.get(Calendar.YEAR);
-        int month = today.get(Calendar.MONTH);
-        month = month + 1;
-        int day = today.get(Calendar.DAY_OF_MONTH);
-        return year + "-" + month + "-" + day;
+        // stores "YYYY-MM-DD", with month values: 0-11
+        inputDate = makeInputDate(day, month, year);
+
+        return makeDateString(day, month+1, year);
     }
 
     private void initDatePicker() {
 
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-//                month = month + 1;
-                String date = makeDateString(day, (month + 1), year);
-                dateButton.setText(date);
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            // add 1 to month since DatePicker month range is 0 (january) to 11 (december)
+            dateButton.setText(makeDateString(day, month+1, year));
 
-                getDateEntryList(makeInputDate(day, month, year));
-                Log.d(LOG_TAG, "Selected Date: " + date);
+            Log.d(LOG_TAG, "Selected Year: " + year);
+            Log.d(LOG_TAG, "Selected Month: " + month);
+            Log.d(LOG_TAG, "Selected Day: " + day);
 
-            }
+            // replaces current date in inputDate with selected date
+            inputDate = makeInputDate(day, month, year);
+            getDateEntryList(inputDate);
+            Log.d(LOG_TAG, "Selected Date: " + inputDate);
         };
-
-
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-
         int style = AlertDialog.THEME_HOLO_LIGHT;
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-
     }
-
 
     private String makeInputDate(int day, int month, int year) {
         String output =  year + "-" + month + "-" + day;
@@ -154,7 +141,6 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
     }
 
 //    FOR RECORD ADAPTER =============================================
-
     @Override
     public void onItemSelectedListener(String modify, int id) {
         Log.d(LOG_TAG, "CheckRecordActivity ==========================");
@@ -186,7 +172,7 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
             db.deleteRecord(Integer.parseInt(recordId));
 
             recordIds.clear();
-            getDateEntryList(getTodaysDateInput());
+            getDateEntryList(inputDate);
             ((BaseAdapter) recordAdapter).notifyDataSetChanged();
         }
     }
@@ -196,8 +182,24 @@ public class CheckRecordActivity extends AppCompatActivity implements OnEditReco
     protected void onResume() {
         super.onResume();
         recordIds.clear();
-        getDateEntryList(getTodaysDateInput());
-        ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+        getDateEntryList(inputDate);
+        updateDateButton(inputDate);
 
+        ((BaseAdapter) recordAdapter).notifyDataSetChanged();
+    }
+
+    private void updateDateButton(String date) {
+        String[] values = date.split("-");
+
+        int year = Integer.parseInt(values[0]);
+        int month = Integer.parseInt(values[1]);
+        int day = Integer.parseInt(values[2]);
+
+        Log.d(LOG_TAG, "updateDateButton() -----------------------------");
+        Log.d(LOG_TAG, "Split year: " + year);
+        Log.d(LOG_TAG, "Split month: " + month);
+        Log.d(LOG_TAG, "Split day: " + day);
+
+        dateButton.setText(makeDateString(day, month+1, year));
     }
 }

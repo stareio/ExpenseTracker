@@ -10,10 +10,12 @@
     <!-- Start of Actual Repeated Object -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="432dp"
+        android:layout_width="410dp"
         android:layout_height="59dp"
-        android:layout_marginVertical="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="6dp"
         android:background="@drawable/radius"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +78,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginStart="172dp"
             android:fontFamily="sans-serif-medium"
-            android:text="PHP 100000.00"
+            android:text="PHP 10000.00"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/money_green"
             android:textSize="20sp"

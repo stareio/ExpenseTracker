@@ -84,7 +84,7 @@ public class RecordAdapter extends BaseAdapter implements OnEditRecordSpnrSelect
             case "Medicine"     :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_medical_services_24); break;
             case "Rental"       :   viewHolder.recordIconIv.setImageResource(R.drawable.ic_baseline_house_24); break;
 
-            default: viewHolder.recordIconIv.setImageResource(R.drawable.default_icon);
+            default: viewHolder.recordIconIv.setImageResource(R.drawable.ic_default);
         }
 
         if (category.equals("")) {

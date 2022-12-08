@@ -29,7 +29,11 @@
             android:id="@+id/list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="12dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
