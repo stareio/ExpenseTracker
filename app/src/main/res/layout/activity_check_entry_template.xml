@@ -10,11 +10,11 @@
     <!-- Start of Actual Repeated Object -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/CHECK_RECORDS_LIST"
         android:layout_width="410dp"
         android:layout_height="59dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="6dp"
-        android:background="@drawable/radius"
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

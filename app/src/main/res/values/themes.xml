@@ -67,6 +67,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <!-- Check Records List -->
+    <style name="CHECK_RECORDS_LIST">
+        <item name="android:background">@drawable/check_radius_light</item>
+    </style>
+
     <!-- Input Field BackgroundS for Add/Edit Record and Settings Pages -->
     <!-- Upper Shadow Version -->
     <style name="INPUT_FIELD_UPPER">

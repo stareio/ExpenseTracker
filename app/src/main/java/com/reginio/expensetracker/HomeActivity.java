@@ -292,12 +292,11 @@ public class HomeActivity extends AppCompatActivity implements OnEditRecordSpnrS
 
                 // get name
                 String name = br.readLine();
-                if (name.equals("")) {
+                if (name == null || name.equals("")) {
                     nameToGreet = "user";
                 } else {
                     nameToGreet = name;
                 }
-
 
                 Log.d(LOG_TAG, "nameToRead: " + nameToGreet);
 
